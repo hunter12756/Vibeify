@@ -1,12 +1,15 @@
 """empty message
 
 Revision ID: 5dd5ed21d95b
-Revises: 
+Revises:
 Create Date: 2023-09-08 05:55:23.217776
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
@@ -27,6 +30,8 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    if environment == 'production':
+            op.execute(f'ALTER TABLE users SET SCHEMA {SCHEMA}')
     op.create_table('artists',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=120), nullable=False),
@@ -36,6 +41,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == 'production':
+            op.execute(f'ALTER TABLE artists SET SCHEMA {SCHEMA}')
     op.create_table('songs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=120), nullable=False),
@@ -44,6 +51,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['artist_id'], ['artists.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == 'production':
+            op.execute(f'ALTER TABLE songs SET SCHEMA {SCHEMA}')
     op.create_table('playlists',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('song_id', sa.Integer(), nullable=True),
@@ -52,6 +61,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    if environment == 'production':
+            op.execute(f'ALTER TABLE playlists SET SCHEMA {SCHEMA}')
     op.create_table('user_likes',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('song_id', sa.Integer(), nullable=False),
@@ -59,6 +70,8 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'song_id')
     )
+    if environment == 'production':
+            op.execute(f'ALTER TABLE user_likes SET SCHEMA {SCHEMA}')
     # ### end Alembic commands ###
 
 
