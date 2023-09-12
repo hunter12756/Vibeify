@@ -26,8 +26,8 @@ class Artist(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "name": self.song_id,
-            "bio": self.user_id,
+            "name": self.name,
+            "bio": self.bio,
             "profile_picture":self.profile_picture,
             "user_id":self.user_id
         }

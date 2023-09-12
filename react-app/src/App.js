@@ -5,6 +5,10 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import LeftBar from "./components/LeftSideBar";
+import SongPlayer from "./components/SongPlayer";
+import MainPage from "./components/MainPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -16,8 +20,13 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <LeftBar isLoaded={isLoaded}/>
+      <SongPlayer isLoaded={isLoaded}/>
       {isLoaded && (
         <Switch>
+          <Route exact path='/'>
+            <MainPage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>

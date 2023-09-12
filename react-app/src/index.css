@@ -1,1 +1,13 @@
 /* TODO Add site wide styles */
+body{
+    background-color: rgb(25 20 20);
+    color:white
+}
+* {
+    font-family: 'Circular Std Black';
+}
+
+@font-face {
+    font-family: 'Circular Std Black';
+    src: url("https://db.onlinewebfonts.com/t/f1a22f6f15d272c7aa56da8b2c91f5e5.ttf")format("truetype");
+}

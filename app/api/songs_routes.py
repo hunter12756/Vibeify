@@ -37,7 +37,7 @@ def create_song(artistId):
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submite():
+    if form.validate_on_submit():
         new_song = Song(
             title=form.data['title'],
             artist_id=artistId,
@@ -61,7 +61,7 @@ def update_songs(id):
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submite():
+    if form.validate_on_submit():
         song.title = form.data['title'],
         song.song_file = form.data['song_file']
 

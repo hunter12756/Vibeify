@@ -14,7 +14,6 @@ def seed_songs():
                 "title":"TEST SONG NAME",
                 "artist_id": i,
                 "song_file":"THIS IS A TEST SONG FILE NAME"
-
             }
             songs.append(song_data)
 

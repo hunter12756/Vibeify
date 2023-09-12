@@ -9,7 +9,7 @@ def seed_artists():
     for i in range(2,11):
         artist_data = {
             "name":fake.name(),
-            "bio":fake.paragraph(),
+            "bio":"TEST BIO",
             "profile_picture":"https://i.imgur.com/JBI0wxv.png",
             "user_id": i,
 
