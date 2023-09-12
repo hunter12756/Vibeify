@@ -6,16 +6,23 @@ from faker import Faker
 #eventually will have to do some parsing and stuff to automatically get song title
 
 def seed_songs():
-    fake = Faker()
+
     songs = []
-    for i in range(2,14):
-        for j in range (1,11):
-            song_data = {
-                "title":"TEST SONG NAME",
-                "artist_id": i,
-                "song_file":"THIS IS A TEST SONG FILE NAME"
-            }
-            songs.append(song_data)
+    songs_titles=[
+        'Hurt','No. 1 Party Anthem','I Know It\'s over','To Forgive',
+        'Where Is My Mind?','Only In Dreams','Superstar','High to Death',
+        'Fade Into You','Wish You Were Here','Loser','Holocene','I\'m So Tired',
+        'Inside Out','Ballad Of Big Nothin','Creep','No Distance Left to Run','Time Has Come Again',
+        'Stuck on the puzzle','I\'ll Be Around','The Adults Are Talking'
+    ]
+    song_files=[]
+    for idx,item in songs_titles:
+        song_data = {
+            "title":songs_titles[idx],
+            "artist_id": idx,
+            "song_file":"THIS IS A TEST SONG FILE NAME"
+        }
+        songs.append(song_data)
 
     [db.session.add(Song(**song)) for song in songs]
     db.session.commit()

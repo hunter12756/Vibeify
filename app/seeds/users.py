@@ -4,37 +4,42 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
 
-    alice = User(username='alice', email='alice@aa.io', password='password')
-    bob = User(username='bob', email='bob@aa.io', password='password')
-    charlie = User(username='charlie', email='charlie@aa.io', password='password')
-    david = User(username='david', email='david@aa.io', password='password')
-    eva = User(username='eva', email='eva@aa.io', password='password')
-    fiona = User(username='fiona', email='fiona@aa.io', password='password')
-    george = User(username='george', email='george@aa.io', password='password')
-    hannah = User(username='hannah', email='hannah@aa.io', password='password')
-    isaac = User(username='isaac', email='isaac@aa.io', password='password')
-
-
-
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(alice)
-    db.session.add(bob)
-    db.session.add(charlie)
-    db.session.add(david)
-    db.session.add(eva)
-    db.session.add(fiona)
-    db.session.add(george)
-    db.session.add(hannah)
-    db.session.add(isaac)
+    users = [
+    User(username='Demo', email='demo@aa.io', password='password'),
+    User(username='marnie', email='marnie@aa.io', password='password'),
+    User(username='bobbie', email='bobbie@aa.io', password='password'),
+    User(username='alice', email='alice@aa.io', password='password'),
+    User(username='bob', email='bob@aa.io', password='password'),
+    User(username='charlie', email='charlie@aa.io', password='password'),
+    User(username='david', email='david@aa.io', password='password'),
+    User(username='eva', email='eva@aa.io', password='password'),
+    User(username='fiona', email='fiona@aa.io', password='password'),
+    User(username='george', email='george@aa.io', password='password'),
+    User(username='hannah', email='hannah@aa.io', password='password'),
+    User(username='isaac', email='isaac@aa.io', password='password'),
+    User(username='irene', email='irene@aa.io', password='password'),
+    User(username='jack', email='jack@aa.io', password='password'),
+    User(username='kate', email='kate@aa.io', password='password'),
+    User(username='liam', email='liam@aa.io', password='password'),
+    User(username='mia', email='mia@aa.io', password='password'),
+    User(username='nathan', email='nathan@aa.io', password='password'),
+    User(username='olivia', email='olivia@aa.io', password='password'),
+    User(username='peter', email='peter@aa.io', password='password'),
+    User(username='quinn', email='quinn@aa.io', password='password'),
+    User(username='rachel', email='rachel@aa.io', password='password'),
+    User(username='samuel', email='samuel@aa.io', password='password'),
+    User(username='tina', email='tina@aa.io', password='password'),
+    User(username='ulysses', email='ulysses@aa.io', password='password'),
+    User(username='victor', email='victor@aa.io', password='password'),
+    User(username='william', email='william@aa.io', password='password'),
+    User(username='xander', email='xander@aa.io', password='password'),
+    User(username='yasmine', email='yasmine@aa.io', password='password'),
+    User(username='zane', email='zane@aa.io', password='password'),
+    User(username='oliver', email='oliver@aa.io', password='password'),
+    
+    ]
+    [db.session.add(User(**user)) for user in users]
     db.session.commit()
 
 

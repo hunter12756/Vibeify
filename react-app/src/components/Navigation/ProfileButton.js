@@ -34,7 +34,7 @@ function ProfileButton({ user }) {
     dispatch(logout());
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "profile-dropdown-container" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
   return (
@@ -42,31 +42,18 @@ function ProfileButton({ user }) {
       <button onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
-      <ul className={ulClassName} ref={ulRef}>
+      <div className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
+          <div className="profile-dropdown">
             <li>{user.username}</li>
             <li>{user.email}</li>
             <li>
               <button onClick={handleLogout}>Log Out</button>
             </li>
-          </>
-        ) : (
-          <>
-            <OpenModalButton
-              buttonText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-
-            <OpenModalButton
-              buttonText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
+          </div>
+        ) : ''
+        }
+      </div>
     </>
   );
 }
