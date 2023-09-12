@@ -36,12 +36,12 @@ def seed_artists():
 ]
 
     artists = []
-    for i in range(2,22):
+    for idx,item in enumerate(artists_name):
         artist_data = {
-            "name":artists_name[i-1],
+            "name":artists_name[idx],
             "bio":fake.paragraph(),
-            "profile_picture":image_links[i-1],
-            "user_id": i,
+            "profile_picture":image_links[idx],
+            "user_id": idx+1,
 
         }
         artists.append(artist_data)

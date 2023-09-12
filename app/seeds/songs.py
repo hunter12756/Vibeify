@@ -15,7 +15,7 @@ def seed_songs():
         'Inside Out','Ballad Of Big Nothin','Creep','No Distance Left to Run','Time Has Come Again',
         'Stuck on the puzzle','I\'ll Be Around','The Adults Are Talking'
     ]
-    song_files=[]
+
     for idx,item in enumerate(songs_titles):
         song_data = {
             "title":songs_titles[idx],
