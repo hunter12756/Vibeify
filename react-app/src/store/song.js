@@ -130,10 +130,12 @@ export const songReducer = (state = initialState, action) => {
             return newState;
 
         case DELETE_SONG:
-
+            const songID = action.payload
             newState ={...state}
+            const finalAllSongs={...newState.allSongs}
+            delete finalAllSongs[songID]
             newState.allSongs.singleSong ={}
 
-            return newState;
+            return {...newState,allSongs:finalAllSongs};
     }
 }

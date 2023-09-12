@@ -37,9 +37,9 @@ def seed_users():
     User(username='yasmine', email='yasmine@aa.io', password='password'),
     User(username='zane', email='zane@aa.io', password='password'),
     User(username='oliver', email='oliver@aa.io', password='password'),
-    
+
     ]
-    [db.session.add(User(**user)) for user in users]
+    [db.session.add((user)) for user in users]
     db.session.commit()
 
 

@@ -9,7 +9,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from app.api import song_routes,artist_routes
 from .seeds import seed_commands
-from .config import Config
+from app.config import Config
 
 if os.environ.get('FLASK_ENV') == 'production':
     app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')

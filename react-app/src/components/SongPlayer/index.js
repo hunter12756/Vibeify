@@ -22,8 +22,9 @@ export default function SongPlayer({ isLoaded,songId}){
 
             // src='/testSongs/Pixes - Where is My Mind.mp3'
             // src='/testSongs/Playboi Carti - Magnolia.mp3'
-            // src='/testSongs/Radiohead - Creep.mp3'
-            src={`/testSongs/${currentSongs.name}.mp3`}
+            src='/testSongs/Radiohead - Creep.mp3'
+            
+            // src={`/testSongs/${test}.mp3`}
             onPlay={e=>console.log("onPlay")}
             showSkipControls={true}
             showJumpControls={false}

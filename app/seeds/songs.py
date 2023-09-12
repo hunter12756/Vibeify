@@ -16,7 +16,7 @@ def seed_songs():
         'Stuck on the puzzle','I\'ll Be Around','The Adults Are Talking'
     ]
     song_files=[]
-    for idx,item in songs_titles:
+    for idx,item in enumerate(songs_titles):
         song_data = {
             "title":songs_titles[idx],
             "artist_id": idx,
