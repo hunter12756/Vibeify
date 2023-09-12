@@ -15,11 +15,10 @@ def seed_songs():
         'Inside Out','Ballad Of Big Nothin','Creep','No Distance Left to Run','Time Has Come Again',
         'Stuck on the puzzle','I\'ll Be Around','The Adults Are Talking'
     ]
-
-    for idx,item in enumerate(songs_titles):
+    for i in range(2,21):
         song_data = {
-            "title":songs_titles[idx],
-            "artist_id": idx,
+            "title":songs_titles[i-1],
+            "artist_id": i,
             "song_file":"THIS IS A TEST SONG FILE NAME"
         }
         songs.append(song_data)
