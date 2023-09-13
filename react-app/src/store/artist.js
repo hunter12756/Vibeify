@@ -1,57 +1,145 @@
-const GET_SONGS = 'songs/all'
-const UPDATE_SONG = 'songs/update'
-const CREATE_SONG = 'songs/create'
-const DELETE_SONG = 'songs/delete'
+const GET_ARTISTS = 'artists/all'
+const GET_ONE_ARTIST = 'artists/oneSong'
+const UPDATE_ARTIST = 'artists/update'
+const CREATE_ARTIST = 'artists/create'
+const DELETE_ARTIST = 'artists/delete'
 
 // normalize data
 const flatten = (arr) => {
     const obj = {}
     if (arr) {
-		if (!arr.length) return {}
-		for (let el of arr) {
-			obj[el.id] = el
-		}
-	}
+        if (!arr.length) return {}
+        for (let el of arr) {
+            obj[el.id] = el
+        }
+    }
     return obj
 }
 
-const getAllSongs = (data) => {
+const getAllArtists = (data) => {
     return {
-        type: GET_SONGS,
-        payload:data
+        type: GET_ARTISTS,
+        payload: data
     }
 }
 
-const updateSong = (data) => {
+const getOneArtist = (data) => {
     return {
-        type: UPDATE_SONG,
-        payload:data
+        type: GET_ONE_ARTIST,
+        payload: data
     }
 }
-const createSong = (data) => {
+
+const updateArtist = (data) => {
     return {
-        type: CREATE_SONG,
-        payload:data
+        type: UPDATE_ARTIST,
+        payload: data
     }
 }
-const deleteSong = (data) => {
+const createArtist = (data) => {
     return {
-        type: DELETE_SONG,
-        payload:data
+        type: CREATE_ARTIST,
+        payload: data
+    }
+}
+const deleteArtist = (data) => {
+    return {
+        type: DELETE_ARTIST,
+        payload: data
     }
 }
 
 // thunks
-export const getAllSongsThunk = () => async (dispatch) =>{
-    const res = await fetch('/api/songs')
+export const getAllArtistsThunk = () => async (dispatch) => {
+    const res = await fetch('/api/artists')
 
     const data = await res.json()
-    if (data && !data.errors) dispatch(getAllSongs())
+    if (data && !data.errors) dispatch(getAllArtists(data))
 
     return data
 
 }
 
-export const createSongThunk = (song) => async (dispatch) =>{
-    const res = await fetch('/api/songs/create')
+export const getOneArtistThunk = (artistId) => async (dispatch) => {
+    const res = await fetch(`/api/artists/${artistId}`)
+
+    const data = await res.json()
+    //want to maybe add it to currentSong
+    if (data && !data.errors) dispatch(getOneArtist(data))
+    return data
+}
+// Not done yet
+export const createArtistThunk = (song) => async (dispatch) => {
+    const { artist_id } = song
+    const res = await fetch(`/api/songs/artists/${artist_id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(song)
+    })
+    const data = await res.json()
+
+    if (data && !data.errors) dispatch(createArtist(data))
+
+    return data
+}
+// Not Done yet
+export const updateArtistThunk = (song) => async (dispatch) => {
+    const { id } = song
+    const res = await fetch(`/api/songs/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(song)
+    })
+    const data = await res.json()
+
+    if (data && !data.errors) dispatch(updateArtist(data))
+
+    return data
+}
+// works well should
+export const deleteArtistThunk = (artistId) => async (dispatch) => {
+    const res = await fetch(`/api/artists/${artistId}`, {
+        method: 'DELETE'
+    })
+    const data = await res.json()
+
+    if (data && !data.errors) dispatch(deleteArtist(artistId))
+
+    return data
+}
+
+// Reducer
+const initialState = { allArtists: {}, singleArtist: {} }
+// mess with action.payload stuff
+export const artistReducer = (state = initialState, action) => {
+    let newState;
+    switch (action.type) {
+        case GET_ARTISTS:
+            const songs = flatten(action.payload.artists)
+            newState = { ...state, allArtists: songs }
+            return newState;
+
+        case GET_ONE_ARTIST:
+            const song = (action.payload.artist)
+            newState = {...state, singleArtist: song}
+            return newState;
+        case CREATE_ARTIST:
+            // newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            return newState;
+
+        case UPDATE_ARTIST:
+            // newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            return newState;
+
+        case DELETE_ARTIST:
+            const artistID = action.payload
+            newState ={...state}
+            const finalAllArtists={...newState.allArtists}
+            delete finalAllArtists[artistID]
+            newState.allArtists.singleArtist ={}
+
+            return {...newState, allArtists:finalAllArtists};
+        default:
+            return state
+    }
 }

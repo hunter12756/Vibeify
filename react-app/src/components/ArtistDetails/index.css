@@ -1,0 +1,10 @@
+#song-img{
+    height:100px;
+    width:100px;
+}
+.songs-artists-container{
+    display: inline-flex;
+    background-color: rgb(55, 52, 52);
+    border-radius: 10px;
+
+}
