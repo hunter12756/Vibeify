@@ -6,18 +6,11 @@ import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 
 import * as songActions from '../../store/song'
-export default function SongPlayer({ isLoaded,songId}){
+export default function SongPlayer({ songId}){
     const dispatch = useDispatch()
     // Song slice of state that plays the passed in song
-    const allsongs = useSelector(state => state.songs);
-    console.log(allsongs)
+    const currentSong = useSelector(state => state.songs.singleSong);
 
-
-    console.log("REAL SONGS",allsongs.allSongs)
-    const oneSong = allsongs.allSongs[3]
-    let file;
-    if(oneSong) file = oneSong.song_file
-    console.log("SINGULAR SONG",oneSong)
 
 
     // const currentsong = allsongs.filter((song)=>song.id === songId)
@@ -25,28 +18,28 @@ export default function SongPlayer({ isLoaded,songId}){
     // useeffect to look for change of currentSong variable
     // in dependenacy array put songID or song attribute
     useEffect(() => {
-        dispatch(songActions.getAllSongsThunk())
+        dispatch(songActions.getOneSongThunk(songId))
     },[dispatch])
     return(
         <>
         <footer>
-        {isLoaded &&
+            {currentSong &&
             <AudioPlayer
             style={{borderRadius:"1rem",background:"#373434",marginTop:"1rem"}}
             autoPlay={false}
 
-            src={`${file}`}
+            src={`${currentSong.song_file}`}
 
             // src={`/testSongs/${test}.mp3`}
             onPlay={e=>console.log("onPlay")}
             showSkipControls={true}
             showJumpControls={false}
-            
+
             preload='none'
             timeFormat='auto'
             header={`Now Playing: `}
             />
-        }
+            }
         </footer>
         </>
     )

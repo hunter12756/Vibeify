@@ -37,12 +37,11 @@ export default function MainPage() {
                         </NavLink>
                     )
                 })
-
                 }
             </div>
         </div>
-            {/* FOOTER PART */}
-            {/* <Footer songId={song.id}/> FOR WHEN THIS WORKS*/}
+        <SongPlayer/>
+
         </>
     )
 }

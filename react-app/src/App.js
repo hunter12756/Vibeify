@@ -5,7 +5,6 @@ import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-import SongPlayer from "./components/SongPlayer";
 import MainPage from "./components/MainPage";
 import SongDetails from "./components/SongDetail";
 import ArtistDetails from "./components/ArtistDetails";
@@ -25,7 +24,6 @@ function App() {
         <Switch>
           <Route exact path='/'>
             <MainPage />
-            <SongPlayer isLoaded={isLoaded}/>
           </Route>
           <Route exact path='/songs/:songId'>
             <SongDetails/>

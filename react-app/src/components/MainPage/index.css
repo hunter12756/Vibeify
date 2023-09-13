@@ -21,6 +21,7 @@
     border:none;
     border-radius: 10px;
     max-width: 100px;
+    height:130px;
     max-height: 150px;
     background-color: rgb(55, 52, 52);
 }

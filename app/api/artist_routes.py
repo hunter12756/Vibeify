@@ -3,7 +3,7 @@ from flask_login import login_required
 from flask import Blueprint, jsonify,request
 from app.forms import ArtistForm
 from app.models import db, Artist,Song
-# from app.api.aws import (upload_file_to_s3, get_unique_filename)
+from app.api.aws import (upload_file_to_s3_artist_img, get_unique_filename)
 artist_routes = Blueprint('artists',__name__)
 
 @artist_routes.route('/')
@@ -22,28 +22,26 @@ def one_artist(id):
 
     return json.dumps({'artist':artist_dict})
 
-#songs from each artistId
-# @artist_routes.route('/artists/<int:artistId>')
-# def artist_songs(artistId):
-#     songs = Artist.query.filter_by(artist_id=artistId).all()
-#     if not songs:
-#         return jsonify({'message':'no song with that id'}), 404
-
-#     return json.dumps({'songs':[song.to_dict() for song in songs]})
-
 #create new artist
 @artist_routes.route('/<int:id>/users/<int:userId>',methods=['POST'])
 @login_required
 def create_artist(userId):
-    data= request.get_json()
+
     form = ArtistForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        artist_img = request.files.get('profile_picture')
+        upload = upload_file_to_s3_artist_img(artist_img)
+        if 'url' not in upload:
+            return upload
+        # other form data
+        name = request.form.get('name')
+        bio = request.form.get('bio')
         new_artist = Artist(
-            name=form.data['name'],
-            bio=form.data['bio'],
-            profile_picture=form.data['profile_picture'],
+            name=name,
+            bio=bio,
+            profile_picture=upload['url'],
             user_id = userId
         )
         db.session.add(new_artist)
@@ -65,9 +63,16 @@ def update_artist(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        artist.title = form.data['title'],
-        artist.bio = form.data['bio'],
-        artist.profile_picture = form.data['profile_picture']
+        name = request.form.get('name')
+        bio = request.form.get('bio')
+        profile_pic = request.files.get('profile_pic')
+        artist.name = name
+        artist.bio = bio
+
+        if profile_pic:
+            upload = upload_file_to_s3_artist_img(profile_pic)
+            artist.profile_picture = upload['url']
+
 
         db.session.commit()
 

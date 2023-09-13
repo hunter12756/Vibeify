@@ -12,7 +12,7 @@ export default function SongDetails() {
     console.log(songId)
     const dispatch = useDispatch()
     const song = useSelector(state => state.songs.singleSong)
-
+    // add isloaded and do auth check first then chain the REAL dispatch in a (then) of the first
     useEffect(() => {
         dispatch(songActions.getOneSongThunk(songId))
     }, [dispatch,songId])
