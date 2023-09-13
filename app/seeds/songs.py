@@ -2,24 +2,48 @@ from app.models import db, environment, SCHEMA, Song
 from sqlalchemy.sql import text
 from random import randint
 from faker import Faker
-
+import boto3
+import urllib.parse
 #eventually will have to do some parsing and stuff to automatically get song title
 
 def seed_songs():
+    # Initialize an S3 client
+    s3 = boto3.client('s3')
 
+    # Specify the bucket name
+    bucket_name = 'vibeify-song-files'  # Replace with your actual S3 bucket name
+    bucket_name2 = 'song-cover-pics'
+    # List objects in the bucket
+    objects = s3.list_objects_v2(Bucket=bucket_name)
+    song_covers=s3.list_objects_v2(Bucket=bucket_name2)
+    # Create an empty list to store the URLs
+    object_urls = []
+    song_covers_urls=[]
+# Iterate through the objects and construct URLs
+    for obj in objects.get('Contents', []):
+        object_key_encoded = urllib.parse.quote(obj['Key'])
+        object_url = f"https://{bucket_name}.s3.amazonaws.com/{object_key_encoded}"
+        object_urls.append(object_url)
+    for song in song_covers.get('Contents',[]):
+        song_url=f"https://{bucket_name2}.s3.amazonaws.com/{song['Key']}"
+        song_covers_urls.append(song_url)
     songs = []
     songs_titles=[
-        'Hurt','No. 1 Party Anthem','I Know It\'s over','To Forgive',
-        'Where Is My Mind?','Only In Dreams','Superstar','High to Death',
-        'Fade Into You','Wish You Were Here','Loser','Holocene','I\'m So Tired',
-        'Inside Out','Ballad Of Big Nothin','Creep','No Distance Left to Run','Time Has Come Again',
-        'Stuck on the puzzle','I\'ll Be Around','The Adults Are Talking'
+        'Stuck on the puzzle','No. 1 Party Anthem','Loser',
+        'No Distance Left To Run','Holocene','High To Death','I\'ll Be Around',
+        'Inside Out','Ballad Of Big Nothing','I\'m So Tired','Hurt',
+        'Fade Into You','Wish You Were Here','Where Is My Mind','Creep',
+        'Superstar','Time Has Come Again','To Forgive','I Know It\'s Over',
+        'The Adults Are Talking','Only In Dreams'
+
     ]
-    for i in range(2,21):
+
+    for i, object_url in enumerate(object_urls):
         song_data = {
-            "title":songs_titles[i-1],
-            "artist_id": i,
-            "song_file":"THIS IS A TEST SONG FILE NAME"
+            "title":songs_titles[i],
+            "artist_id": i+1,
+            "song_file":object_url,
+            "cover_img":song_covers_urls[i]
         }
         songs.append(song_data)
 

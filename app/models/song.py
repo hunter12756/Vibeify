@@ -9,8 +9,8 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
     artist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("artists.id")), nullable=False)
-    song_file = db.Column(db.String(120))
-
+    song_file = db.Column(db.String(500))
+    cover_img = db.Column(db.String(500))
     #relationships
     #Many songs to ONE playlist
     playlist_song = db.relationship("Playlist",back_populates='song_playlist')
@@ -28,5 +28,6 @@ class Song(db.Model):
             "id": self.id,
             "title": self.title,
             "artist_id": self.artist_id,
-            "song_file": self.song_file
+            "song_file": self.song_file,
+            "cover_img":self.cover_img
         }

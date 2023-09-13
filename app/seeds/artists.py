@@ -5,12 +5,13 @@ from faker import Faker
 
 def seed_artists():
     fake = Faker()
-    artists_name = [
+    artists_name_unsorted = [
     'Johnny Cash','Arctic Monkeys', 'The Smiths','The Smashing Pumpkins','Pixies',
     'Weezer','Sonic Youth','Car Seat Headrest','Mazzy Star','Pink Floyd',
     'Beck','Bon Iver','Fugazi','Duster','Elliot Smith',
     'Radiohead','Blur','The Last Shadow Puppets','Alex Turner','CeeLo Green','The Strokes'
     ]
+    artists_name=sorted(artists_name_unsorted)
     image_links = [
     "https://i.imgur.com/RGD1VZW.jpg",
     "https://i.imgur.com/fuP3NvA.jpg",
