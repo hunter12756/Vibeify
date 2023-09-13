@@ -41,7 +41,10 @@ function Navigation({ isLoaded }) {
 				)
 			}
 		<div className='logo-container'>
-			<img className='logo' src='/images/logo.png'></img>
+			<NavLink to='/'>
+
+			 <img className='logo' src='/images/logo.png'></img>
+			</NavLink>
 
 		</div>
 		</div>

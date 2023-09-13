@@ -62,13 +62,10 @@ export const getAllSongsThunk = () => async (dispatch) => {
 
 export const getOneSongThunk = (songId) => async (dispatch) => {
     const res = await fetch(`/api/songs/${songId}`)
+
     const data = await res.json()
-
     //want to maybe add it to currentSong
-    if (data && !data.errors){
-        dispatch(getOneSong(data))
-    }
-
+    if (data && !data.errors) dispatch(getOneSong(data))
     return data
 }
 
@@ -123,7 +120,7 @@ export const songReducer = (state = initialState, action) => {
             return newState;
 
         case GET_ONE_SONG:
-            const song = flatten(action.payload)
+            const song = (action.payload.song)
             newState = {...state, singleSong: song}
             return newState;
         case CREATE_SONG:

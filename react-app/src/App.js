@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SongPlayer from "./components/SongPlayer";
 import MainPage from "./components/MainPage";
+import SongDetails from "./components/SongDetail";
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
           <Route exact path='/'>
             <MainPage />
             <SongPlayer isLoaded={isLoaded}/>
+          </Route>
+          <Route exact path='/songs/:songId'>
+            <SongDetails/>
           </Route>
           <Route path="/login" >
             <LoginFormPage />

@@ -1,0 +1,10 @@
+.audo-visualizer-container{
+    display: inline-flex;
+    height:500px;
+    width:800px;
+
+}
+.song-details-container{
+    display: flex;
+
+}

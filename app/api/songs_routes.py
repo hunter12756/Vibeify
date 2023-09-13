@@ -2,7 +2,7 @@ import json
 from flask_login import login_required
 from flask import Blueprint, jsonify,request
 from app.forms import SongForm
-from app.models import db, Song
+from app.models import db, Song, Artist
 # from app.api.aws import (upload_file_to_s3, get_unique_filename)
 song_routes = Blueprint('songs',__name__)
 
@@ -14,11 +14,13 @@ def all_songs():
 @song_routes.route('/<int:songId>')
 def one_song(songId):
     song = Song.query.get(songId)
-
+    artist = Artist.query.get(song.artist_id)
+    song_dict = song.to_dict()
+    song_dict['artist'] = artist.name
     if not song:
         return jsonify({'message':'no song with that id'}), 404
 
-    return json.dumps({'song':song.to_dict()})
+    return json.dumps({'song':song_dict})
 
 #songs from each artistId
 @song_routes.route('/artists/<int:artistId>')
