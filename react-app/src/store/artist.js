@@ -131,11 +131,11 @@ export const artistReducer = (state = initialState, action) => {
             newState = {...state, singleArtist: song}
             return newState;
         case CREATE_ARTIST:
-            // newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            newState = { ...state, allArtists: { ...state.allArtists, [action.data.id]: action.data } }
             return newState;
 
         case UPDATE_ARTIST:
-            // newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            newState = { ...state, allArtists: { ...state.allArtists, [action.data.id]: action.data } }
             return newState;
 
         case DELETE_ARTIST:
