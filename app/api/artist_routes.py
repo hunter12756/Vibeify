@@ -10,10 +10,13 @@ artist_routes = Blueprint('artists',__name__)
 def all_artists():
     artists = Artist.query.all()
     return json.dumps({'artists':[artist.to_dict() for artist in artists]})
+
 @artist_routes.route('/check-artist')
 def artist_page_exists():
     user = current_user  # Get the current logged-in user
-    return jsonify({'exists': user.artist_user is not None})
+    return json.dumps({'exists': user.artist_user is not None})
+
+
 @artist_routes.route('/<int:id>')
 def one_artist(id):
     artist = Artist.query.get(id)
