@@ -14,8 +14,17 @@ function Navigation({ isLoaded }) {
 	const dispatch = useDispatch()
 	const sessionUser = useSelector(state => state.session.user);
 	const artists = useSelector(state=>state.artists.allArtists)
-	const filteredArtists = Object.values(artists).filter(artist => artist.user_id === Number(sessionUser.id));
-	const filteredArtist= filteredArtists[0]
+	let filteredArtists=[]
+	let filteredArtist=null
+	let filteredArtistId=null
+	if(sessionUser){
+
+		filteredArtists = Object.values(artists).filter(artist => artist.user_id === Number(sessionUser.id));
+		filteredArtist= filteredArtists[0]
+		if(filteredArtist){
+			filteredArtistId=filteredArtist.id
+		}
+	}
 	console.log("FILTERED ARTIST",filteredArtist)
 	const closeMenu = () => setShowMenu(false);
 
@@ -29,7 +38,7 @@ function Navigation({ isLoaded }) {
 			console.error('Error checking artist page:', error);
 		  });
 		  dispatch(artistActions.getAllArtistsThunk())
-	  }, [dispatch]);
+	  }, [dispatch,filteredArtistId]);
 
 	return (
 		<>
@@ -45,7 +54,7 @@ function Navigation({ isLoaded }) {
 
 							{hasArtistPage ? (
 								// Content to display when the artist page exists
-								<NavLink to={`/artists/${filteredArtist.id}`}>
+								<NavLink to={`/artists/${filteredArtistId}`}>
 
 									<div>Your artist page </div>
 								</NavLink>
