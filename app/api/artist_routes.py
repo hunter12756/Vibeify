@@ -1,8 +1,8 @@
 import json
-from flask_login import login_required
+from flask_login import login_required,current_user
 from flask import Blueprint, jsonify,request
 from app.forms import ArtistForm
-from app.models import db, Artist,Song
+from app.models import db, Artist,Song,User
 from app.api.aws import (upload_file_to_s3_artist_img, get_unique_filename)
 artist_routes = Blueprint('artists',__name__)
 
@@ -10,22 +10,26 @@ artist_routes = Blueprint('artists',__name__)
 def all_artists():
     artists = Artist.query.all()
     return json.dumps({'artists':[artist.to_dict() for artist in artists]})
-
+@artist_routes.route('/check-artist')
+def artist_page_exists():
+    user = current_user  # Get the current logged-in user
+    return jsonify({'exists': user.artist_user is not None})
 @artist_routes.route('/<int:id>')
 def one_artist(id):
     artist = Artist.query.get(id)
     artist_songs = [Song.query.filter_by(artist_id=id).all()]
     artist_dict = artist.to_dict()
     artist_dict['songs']:artist_songs
+
     if not artist:
         return jsonify({'message':'no artist with that id'}), 404
 
     return json.dumps({'artist':artist_dict})
 
 #create new artist
-@artist_routes.route('/<int:id>/users/<int:userId>',methods=['POST'])
+@artist_routes.route('/create',methods=['POST'])
 @login_required
-def create_artist(userId):
+def create_artist():
 
     form = ArtistForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -38,11 +42,12 @@ def create_artist(userId):
         # other form data
         name = request.form.get('name')
         bio = request.form.get('bio')
+        user_id=request.form.get('user_id')
         new_artist = Artist(
             name=name,
             bio=bio,
             profile_picture=upload['url'],
-            user_id = userId
+            user_id = user_id
         )
         db.session.add(new_artist)
         db.session.commit()

@@ -1,7 +1,7 @@
 import './index.css'
 import SongPlayer from '../SongPlayer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { useParams,NavLink } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import * as songActions from '../../store/song'
 
@@ -21,7 +21,10 @@ export default function SongDetails() {
             {song &&
                 <>
                     <h1>{song.title}</h1>
+                    <NavLink to={`/artists/${song.artist_id}`}>
+
                     <h2>{song.artist}</h2>
+                    </NavLink>
                     <div className='song-details-container'>
                         <div className='cover-img-container'>
                             <img src={`${song.cover_img}`}></img>

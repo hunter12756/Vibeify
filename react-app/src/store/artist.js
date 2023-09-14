@@ -69,12 +69,10 @@ export const getOneArtistThunk = (artistId) => async (dispatch) => {
     return data
 }
 // Not done yet
-export const createArtistThunk = (song) => async (dispatch) => {
-    const { artist_id } = song
-    const res = await fetch(`/api/songs/artists/${artist_id}`, {
+export const createArtistThunk = (artist) => async (dispatch) => {
+    const res = await fetch(`/api/artists/create`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(song)
+        body:artist
     })
     const data = await res.json()
 
@@ -83,12 +81,11 @@ export const createArtistThunk = (song) => async (dispatch) => {
     return data
 }
 // Not Done yet
-export const updateArtistThunk = (song) => async (dispatch) => {
-    const { id } = song
-    const res = await fetch(`/api/songs/${id}`, {
+export const updateArtistThunk = (artist) => async (dispatch) => {
+    const { id } = artist
+    const res = await fetch(`/api/artists/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(song)
+        body: artist
     })
     const data = await res.json()
 

@@ -12,7 +12,6 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-
     #relations
     #One user to MANY playlists
     playlist_user = db.relationship("Playlist", back_populates="user_playlist")

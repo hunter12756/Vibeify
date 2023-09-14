@@ -17,6 +17,7 @@ def one_song(songId):
     artist = Artist.query.get(song.artist_id)
     song_dict = song.to_dict()
     song_dict['artist'] = artist.name
+    
     if not song:
         return jsonify({'message':'no song with that id'}), 404
 

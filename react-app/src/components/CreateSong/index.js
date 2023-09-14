@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as artistsActions from '../../store/artist';
 
-export default function CreateArtist({ artist, formType }) {
+export default function CreateSong({ artist, formType }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
