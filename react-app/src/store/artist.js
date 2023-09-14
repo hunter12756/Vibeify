@@ -3,7 +3,7 @@ const GET_ONE_ARTIST = 'artists/oneSong'
 const UPDATE_ARTIST = 'artists/update'
 const CREATE_ARTIST = 'artists/create'
 const DELETE_ARTIST = 'artists/delete'
-
+const CHECK_ARTIST = 'artists/check'
 // normalize data
 const flatten = (arr) => {
     const obj = {}
@@ -15,7 +15,12 @@ const flatten = (arr) => {
     }
     return obj
 }
-
+const checkArtist = (data) =>{
+    return {
+        type: CHECK_ARTIST,
+        payload: data
+    }
+}
 const getAllArtists = (data) => {
     return {
         type: GET_ARTISTS,
@@ -59,7 +64,12 @@ export const getAllArtistsThunk = () => async (dispatch) => {
     return data
 
 }
-
+export const checkArtistThunk = () => async (dispatch)=>{
+    const res = await fetch('/api/artists/check-artist')
+    const data = await res.json()
+    if(data && !data.errors) dispatch(checkArtist(data))
+    return data
+}
 export const getOneArtistThunk = (artistId) => async (dispatch) => {
     const res = await fetch(`/api/artists/${artistId}`)
 

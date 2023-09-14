@@ -17,6 +17,7 @@ export default function MainPage() {
     },[dispatch])
     return (
         <>
+        
         <div className='main-page-container'>
             <div>
                 <LeftBar isLoaded={isLoaded}/>

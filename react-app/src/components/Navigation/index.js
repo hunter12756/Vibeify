@@ -21,8 +21,7 @@ function Navigation({ isLoaded }) {
 
 	useEffect(() => {
 		// Make an API request to check if the artist page exists
-		fetch('/api/artists/check-artist')
-		  .then((response) => response.json())
+		dispatch(artistActions.checkArtistThunk())
 		  .then((data) => {
 			setHasArtistPage(data.exists);
 		  })
