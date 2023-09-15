@@ -23,6 +23,7 @@ function LoginFormModal() {
 
   return (
     <>
+    <div className="login-form">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <ul>
@@ -48,8 +49,10 @@ function LoginFormModal() {
             required
           />
         </label>
+        <button className="otherLoginButtons" onClick={() => dispatch(login("demo@aa.io", "password")).then(() => closeModal())}>Demo Login</button>
         <button type="submit">Log In</button>
       </form>
+      </div>
     </>
   );
 }

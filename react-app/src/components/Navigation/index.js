@@ -45,14 +45,14 @@ function Navigation({ isLoaded }) {
 
 			<div className="navbar">
 
-				{isLoaded && sessionUser && filteredArtist ?
+				{isLoaded && sessionUser ?
 					(
 						<>
 							<div className='logged-in-user-container'>
 								<ProfileButton user={sessionUser} />
 							</div>
 
-							{hasArtistPage ? (
+							{hasArtistPage && filteredArtist ? (
 								// Content to display when the artist page exists
 								<NavLink to={`/artists/${filteredArtistId}`}>
 
