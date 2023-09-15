@@ -11,8 +11,8 @@ export default function SongDetails() {
     const { songId } = useParams()
     console.log(songId)
     const dispatch = useDispatch()
-    const song = useSelector(state => state.songs.singleSong)
     // add isloaded and do auth check first then chain the REAL dispatch in a (then) of the first
+    const song = useSelector(state => state.songs.singleSong)
     useEffect(() => {
         dispatch(songActions.getOneSongThunk(songId))
     }, [dispatch,songId])
@@ -38,12 +38,10 @@ export default function SongDetails() {
                                 iconsColor="#faffff"
                                 showMainActionIcon
                                 showLoaderIcon
-                                highFrequency={4000} />
+                                highFrequency={15000} />
                         </div>
                     </div>
                 </>
-                // Audio Player
-
             }
         </>
     )

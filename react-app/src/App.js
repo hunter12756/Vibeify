@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation";
 import MainPage from "./components/MainPage";
 import SongDetails from "./components/SongDetail";
 import ArtistDetails from "./components/ArtistDetails";
-
+import SongPlayer from "./components/SongPlayer";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,16 +20,19 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
             <MainPage />
+            <SongPlayer/>
           </Route>
           <Route exact path='/songs/:songId'>
             <SongDetails/>
           </Route>
           <Route exact path='/artists/:artistId'>
             <ArtistDetails/>
+            <SongPlayer/>
           </Route>
           <Route path="/login" >
             <LoginFormPage />
