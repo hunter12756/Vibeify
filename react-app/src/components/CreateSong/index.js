@@ -21,7 +21,7 @@ export default function CreateSong({ song, formType }) {
         const errors = {};
 
         if (title.length < 10 || title.length > 50) {
-            title.name = 'Name must be between 10 and 50 characters.'
+            errors.title = 'Name must be between 10 and 50 characters.'
         };
         if (coverImg === null) {
             errors.cover_img = 'Please select an image to upload.'
