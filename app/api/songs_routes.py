@@ -3,7 +3,7 @@ from flask_login import login_required
 from flask import Blueprint, jsonify,request
 from app.forms import SongForm
 from app.models import db, Song, Artist
-# from app.api.aws import (upload_file_to_s3, get_unique_filename)
+from app.api.aws import (upload_file_to_s3_song_img,upload_file_to_s3_song_file, get_unique_filename)
 song_routes = Blueprint('songs',__name__)
 
 @song_routes.route('/')
@@ -17,7 +17,7 @@ def one_song(songId):
     artist = Artist.query.get(song.artist_id)
     song_dict = song.to_dict()
     song_dict['artist'] = artist.name
-    
+
     if not song:
         return jsonify({'message':'no song with that id'}), 404
 
@@ -36,15 +36,22 @@ def artist_songs(artistId):
 @song_routes.route('/artists/<int:artistId>',methods=['POST'])
 @login_required
 def create_song(artistId):
-    data= request.get_json()
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        cover_img = request.files.get('cover_img')
+        upload = upload_file_to_s3_song_img(cover_img)
+        song_file = request.files.get('song_file')
+        upload2= upload_file_to_s3_song_file(song_file)
+        title = request.form.get('title')
+        artistId= request.form.get('artist_id')
         new_song = Song(
-            title=form.data['title'],
+            title=title,
             artist_id=artistId,
-            song_file=form.data['song_file']
+            song_file=upload2['url'],
+            cover_img=upload['url']
+
         )
         db.session.add(new_song)
         db.session.commit()

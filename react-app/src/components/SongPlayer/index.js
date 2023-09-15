@@ -37,7 +37,7 @@ export default function SongPlayer({ songId}){
 
             preload='none'
             timeFormat='auto'
-            header={`Now Playing: `}
+            header={`Now Playing: ${currentSong.title}`}
             />
             }
         </footer>

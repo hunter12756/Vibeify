@@ -73,8 +73,7 @@ export const createSongThunk = (song) => async (dispatch) => {
     const { artist_id } = song
     const res = await fetch(`/api/songs/artists/${artist_id}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(song)
+        body: song
     })
     const data = await res.json()
 
@@ -87,8 +86,7 @@ export const updateSongThunk = (song) => async (dispatch) => {
     const { id } = song
     const res = await fetch(`/api/songs/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(song)
+        body: song
     })
     const data = await res.json()
 

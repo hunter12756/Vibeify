@@ -1,7 +1,7 @@
 import './index.css'
 import SongPlayer from '../SongPlayer';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams,NavLink } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import * as artistActions from '../../store/artist'
 import * as songActions from '../../store/song'
@@ -54,6 +54,16 @@ export default function ArtistDetails() {
                             <img src={`${artist.profile_picture}`}></img>
                         </div>
                         <h1>Songs</h1>
+                        {artist.user_id === user.id ?
+                            <div>
+                                <OpenModalButton
+                                    modalComponent={<CreateSong />}
+                                    className="update-song-btn"
+                                    buttonText={"Create"}
+                                />
+                            </div>:
+                            ''
+                        }
                         <div className='songs-artists-container'>
                             {filteredSongs.map((song) => {
                                 return (
@@ -61,7 +71,7 @@ export default function ArtistDetails() {
                                         <div className='song-info'>
                                             <NavLink to={`/songs/${song.id}`}>
 
-                                            <h3>{song.title}</h3>
+                                                <h3>{song.title}</h3>
                                             </NavLink>
                                             {artist.user_id === user.id ?
                                                 <>
