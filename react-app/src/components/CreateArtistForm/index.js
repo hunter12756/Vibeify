@@ -20,7 +20,6 @@ export default function CreateArtist({ artist, formType }) {
 
     useEffect(() => {
         const errors = {};
-
         if (bio.length < 10 || bio.length > 255) {
             errors.bio = 'Bio must be between 10 and 255 characters.'
         };
@@ -40,7 +39,7 @@ export default function CreateArtist({ artist, formType }) {
             name,
             bio,
             profile_picture,
-            userId: user.id
+            user_id: user.id
         }
 
         if (formType === 'Update Artist') {
@@ -55,6 +54,8 @@ export default function CreateArtist({ artist, formType }) {
             dispatch(artistsActions.createArtistThunk(newArtist))
                 .then((data) => {
                     closeModal()
+                    console.log('artistID REDIRECT',data.id)
+                    console.log("********* maybe bad data,",data)
                     history.push(`/artists/${data.id}`)
                 })
                 .catch((e) => {

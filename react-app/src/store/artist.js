@@ -56,7 +56,7 @@ const deleteArtist = (data) => {
 
 // thunks
 export const getAllArtistsThunk = () => async (dispatch) => {
-    const res = await fetch('/api/artists')
+    const res = await fetch('/api/artists/')
 
     const data = await res.json()
     if (data && !data.errors) dispatch(getAllArtists(data))
@@ -80,12 +80,20 @@ export const getOneArtistThunk = (artistId) => async (dispatch) => {
 }
 // Not done yet
 export const createArtistThunk = (artist) => async (dispatch) => {
+    console.log("ARTIST DATA",artist)
+    const formData = new FormData();
+
+    formData.append("name", artist.name);
+    formData.append("bio", artist.bio);
+    formData.append("profile_picture", artist.profile_picture);
     const res = await fetch(`/api/artists/create`, {
         method: 'POST',
-        body:artist
+        body: formData
     })
-    const data = await res.json()
+    console.log("RESPONSE",res)
 
+    const data = await res.json()
+    console.log("DATA",data)
     if (data && !data.errors) dispatch(createArtist(data))
 
     return data
@@ -131,11 +139,11 @@ export const artistReducer = (state = initialState, action) => {
             newState = {...state, singleArtist: song}
             return newState;
         case CREATE_ARTIST:
-            newState = { ...state, allArtists: { ...state.allArtists, [action.data.id]: action.data } }
+            newState = { ...state, allArtists: { ...state.allArtists, [action.payload.id]: action.payload } }
             return newState;
 
         case UPDATE_ARTIST:
-            newState = { ...state, allArtists: { ...state.allArtists, [action.data.id]: action.data } }
+            newState = { ...state, allArtists: { ...state.allArtists, [action.payload.id]: action.payload } }
             return newState;
 
         case DELETE_ARTIST:

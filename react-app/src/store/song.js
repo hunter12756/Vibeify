@@ -51,7 +51,7 @@ const deleteSong = (data) => {
 
 // thunks
 export const getAllSongsThunk = () => async (dispatch) => {
-    const res = await fetch('/api/songs')
+    const res = await fetch('/api/songs/')
 
     const data = await res.json()
     if (data && !data.errors) dispatch(getAllSongs(data))
@@ -122,11 +122,11 @@ export const songReducer = (state = initialState, action) => {
             newState = {...state, singleSong: song}
             return newState;
         case CREATE_SONG:
-            newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            newState = { ...state, allSongs: { ...state.allSongs, [action.payload.id]: action.payload } }
             return newState;
 
         case UPDATE_SONG:
-            newState = { ...state, allSongs: { ...state.allSongs, [action.data.id]: action.data } }
+            newState = { ...state, allSongs: { ...state.allSongs, [action.payload.id]: action.payload } }
             return newState;
 
         case DELETE_SONG:

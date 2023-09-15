@@ -37,27 +37,26 @@ def create_artist():
     form = ArtistForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    if form.validate_on_submit():
-        artist_img = request.files.get('profile_picture')
-        upload = upload_file_to_s3_artist_img(artist_img)
-        if 'url' not in upload:
-            return upload
+    # if form.validate_on_submit():
+    artist_img = request.files.get('profile_picture')
+    upload = upload_file_to_s3_artist_img(artist_img)
+    if 'url' not in upload:
+        return upload
         # other form data
-        name = request.form.get('name')
-        bio = request.form.get('bio')
-        user_id=request.form.get('user_id')
-        new_artist = Artist(
-            name=name,
-            bio=bio,
-            profile_picture=upload['url'],
-            user_id = user_id
-        )
-        db.session.add(new_artist)
-        db.session.commit()
 
-        return json.dumps([{'artist':new_artist.to_dict()}]),201
-    if form.errors:
-        return form.errors
+    new_artist = Artist(
+        name=request.form.get('name'),
+        bio=request.form.get('bio'),
+        profile_picture=upload['url'],
+        user_id = current_user.id
+    )
+    db.session.add(new_artist)
+    db.session.commit()
+
+    return new_artist.to_dict(),201
+    # return json.dumps([{'artist':new_artist.to_dict()}]),201
+# if form.errors:
+#     return form.errors
 
 #update artist
 @artist_routes.route('/<int:id>',methods=['PUT'])
@@ -84,13 +83,13 @@ def update_artist(id):
 
         db.session.commit()
 
-        return json.dumps([{'artist':artist.to_dict()}]),201
+        return artist.to_dict(),201
     if form.errors:
         return form.errors
 
 @artist_routes.route('/<int:id>',methods=['DELETE'])
 @login_required
-def delete_song(id):
+def delete_artist(id):
     artist = Artist.query.get(id)
     if not artist:
         return jsonify({'message':'Artist not found'}),404
@@ -98,5 +97,6 @@ def delete_song(id):
     if artist:
         db.session.delete(artist)
         db.session.commit()
-        return json.dumps([{'message':'Artist delete successfully'}])
+    if artist==None:
+        return {'message':'Artist delete successfully'}
     return json.dumps([[{'message':'Artist not found'}]]),404
