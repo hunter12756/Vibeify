@@ -12,7 +12,10 @@ export default function SongPlayer({ songId}){
     const currentSong = useSelector(state => state.songs.singleSong);
 
 
-
+    let title = currentSong.title
+    if(!title){
+        title='No Song Selected'
+    }
     // const currentsong = allsongs.filter((song)=>song.id === songId)
     // const songFile = currentsong.song_file
     // useeffect to look for change of currentSong variable
@@ -37,7 +40,7 @@ export default function SongPlayer({ songId}){
 
             preload='none'
             timeFormat='auto'
-            header={`Now Playing: ${currentSong.title}`}
+            header={`Now Playing: ${title}`}
             />
             }
         </footer>
