@@ -23,11 +23,11 @@ export default function CreateSong({ song, formType }) {
         if (title.length < 10 || title.length > 50) {
             title.name = 'Name must be between 10 and 50 characters.'
         };
-        if (cover_img === null) {
+        if (coverImg === null) {
             errors.cover_img = 'Please select an image to upload.'
         }
         setErrors(errors)
-    }, [title,cover_img]);
+    }, [title,coverImg]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
