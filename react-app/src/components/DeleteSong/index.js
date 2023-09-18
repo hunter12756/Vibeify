@@ -6,6 +6,7 @@ import './index.css';
 export default function DeleteSongModal({ songId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
+    console.log("SONGID BEING DELETE:",songId)
 
     const songDelete = (e, songId) => {
         e.preventDefault();

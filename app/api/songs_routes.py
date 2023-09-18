@@ -98,11 +98,11 @@ def update_songs(id):
 def delete_song(id):
     song = Song.query.get(id)
     if not song:
-        return jsonify({'message':'Song not found'}),404
+        return {'message':'Song not found'},404
 
     if song:
         db.session.delete(song)
         db.session.commit()
     if song==None:
         return {'message':'Song deleted successfully'}
-    return json.dumps([[{'message':'Song not found'}]]),404
+    return {'message':'Song not found'},404

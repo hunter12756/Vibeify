@@ -127,7 +127,7 @@ export const deleteSongThunk = (songId) => async (dispatch) => {
 }
 
 // Reducer
-const initialState = { allSongs: {}, singleSong: {},currentSong:{} }
+const initialState = { allSongs: {}, singleSong: {}}
 // mess with action.payload stuff
 export const songReducer = (state = initialState, action) => {
     let newState;

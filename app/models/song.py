@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 # from .likes_join_table import likes
-from .likes_join_table import likes
+# from .likes_join_table import likes
 class Song(db.Model):
     __tablename__ = "songs"
     if environment == "production":
@@ -18,10 +18,10 @@ class Song(db.Model):
     artist_song = db.relationship("Artist",back_populates='song_artist')
 
     #join table
-    likes_user = db.relationship(
-        "User",
-        secondary=likes,
-        back_populates="user_likes")
+    # likes_user = db.relationship(
+    #     "User",
+    #     secondary=likes,
+    #     back_populates="user_likes")
 
     def to_dict(self):
         return {
