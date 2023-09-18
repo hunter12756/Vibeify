@@ -17,7 +17,7 @@ export default function DeleteSongModal({ songId }) {
         <>
             <h1>Confirm Delete</h1>
             <h2>Are you sure you want to delete your song?</h2>
-            <button onClick={(e) => songDelete(e, artistId)} id='deleteButton'>Yes (Delete Song)</button>
+            <button onClick={(e) => songDelete(e, songId)} id='deleteButton'>Yes (Delete Song)</button>
             <button onClick={closeModal} id='dontDeleteButton'>No (Keep Song)</button>
         </>
     )
