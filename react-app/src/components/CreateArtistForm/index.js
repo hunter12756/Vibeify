@@ -44,7 +44,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
         }
 
         if (formType === 'Update Artist') {
-            dispatch(artistsActions.updateArtistThunk(newArtist, artist.id))
+            await dispatch(artistsActions.updateArtistThunk(newArtist, artist.id))
                 .then(() => {
                     closeModal()
                 })
@@ -52,7 +52,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
                     console.error("Error making artist profile: ", e)
                 })
         } else {
-            dispatch(artistsActions.createArtistThunk(newArtist))
+            await dispatch(artistsActions.createArtistThunk(newArtist))
                 .then((data) => {
                     closeModal()
                     console.log('artistID REDIRECT',data.id)

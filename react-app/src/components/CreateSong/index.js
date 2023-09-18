@@ -41,7 +41,7 @@ export default function CreateSong({ song, formType,artistId }) {
         }
 
         if (formType === 'Update Song') {
-            dispatch(songsActions.updateSongThunk(newSong, song.id))
+           await dispatch(songsActions.updateSongThunk(newSong, song.id))
                 .then(() => {
                     closeModal()
                 })
@@ -49,7 +49,7 @@ export default function CreateSong({ song, formType,artistId }) {
                     console.error("Error updating song: ", e)
                 })
         } else {
-            dispatch(songsActions.createSongThunk(newSong))
+            await dispatch(songsActions.createSongThunk(newSong))
                 .then((data) => {
                     closeModal()
                 })
