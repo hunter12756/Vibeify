@@ -47,7 +47,7 @@ def create_artist():
         name=request.form.get('name'),
         bio=request.form.get('bio'),
         profile_picture=upload['url'],
-        user_id = current_user.id
+        user_id = str(current_user.id)
     )
     db.session.add(new_artist)
     db.session.commit()

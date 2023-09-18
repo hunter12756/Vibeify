@@ -52,7 +52,7 @@ def create_song():
 
         new_song = Song(
             title=request.form.get('title'),
-            artist_id=int(request.form.get('artist_id')),
+            artist_id=str(request.form.get('artist_id')),
             song_file=upload2['url'],
             cover_img=upload['url'],
         )
