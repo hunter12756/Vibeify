@@ -8,7 +8,7 @@ import MainPage from "./components/MainPage";
 import SongDetails from "./components/SongDetail";
 import ArtistDetails from "./components/ArtistDetails";
 import SongPlayer from "./components/SongPlayer";
-
+import AboutLinks from "./components/AboutLinks";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,9 +33,10 @@ function App() {
             <ArtistDetails/>
             <SongPlayer/>
           </Route>
-          
+
         </Switch>
       )}
+      <AboutLinks/>
     </>
   );
 }
