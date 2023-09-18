@@ -105,7 +105,7 @@ export const updateArtistThunk = (artist,artistId) => async (dispatch) => {
 
     formData.append("name", artist.name);
     formData.append("bio", artist.bio);
-    
+
     if(artist.profile_picture){
         formData.append("profile_picture", artist.profile_picture);
     }
@@ -113,8 +113,9 @@ export const updateArtistThunk = (artist,artistId) => async (dispatch) => {
         method: 'PUT',
         body: formData
     })
+    console.log("UPDATED ARTIST RESPONSE: ", res)
     const data = await res.json()
-
+    console.log("UPDATED ARTIST DATA: ", data)
     if (data && !data.errors) dispatch(updateArtist(data))
 
     return data

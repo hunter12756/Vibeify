@@ -93,9 +93,9 @@ export const createSongThunk = (song) => async (dispatch) => {
 export const updateSongThunk = (song,songId) => async (dispatch) => {
 
     const formData = new FormData();
-    formData.append("title", song.description);
+    formData.append("title", song.title);
 
-    
+
     if (song.cover_img) {
         formData.append("cover_img", song.cover_img);
     }
@@ -107,8 +107,9 @@ export const updateSongThunk = (song,songId) => async (dispatch) => {
         method: 'PUT',
         body: formData
     })
+    console.log("UPDATE SONG RESPONSE",res)
     const data = await res.json()
-
+    console.log("UPDATE SONG DATA: ", data)
     if (data && !data.errors) dispatch(updateSong(data))
 
     return data

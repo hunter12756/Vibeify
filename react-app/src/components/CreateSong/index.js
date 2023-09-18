@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory ,useParams} from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as songsActions from '../../store/song';
-
-export default function CreateSong({ song, formType,artistId }) {
+import * as artistActions from '../../store/artist'
+export default function CreateSong({ song, formType }) {
     const dispatch = useDispatch();
-    const artist_id = artistId
+
     const history = useHistory();
-    console.log("THIS IS ARTIST ID USED IN CREATE SONG",artistId)
+    console.log("THIS IS ARTIST ID USED IN CREATE SONG",song.artist_id)
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
     const [title, setTitle] = useState(formType === 'Update Song' ? song.title : '');
     const [coverImg,setCoverImg] = useState(formType === 'Update Song' ? song.cover_img : '');
-
+    const artist = useSelector(state=>state.artists.singleArtist)
     const [songFile, setSongFile] = useState(formType==='Update Song' ? song.song_file:'');
     const [imageLoading, setImageLoading] = useState(false);
     const [errors, setErrors] = useState({});
-
+    console.log(artist.id)
     useEffect(() => {
         const errors = {};
 
@@ -30,13 +30,15 @@ export default function CreateSong({ song, formType,artistId }) {
         }
         setErrors(errors)
     }, [title,coverImg]);
-
+    useEffect(()=>{
+        dispatch(artistActions.getOneArtistThunk(artist.id))
+    },[])
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newSong = {
             title,
-            artist_id: artist_id,
+            artist_id: artist.id,
             song_file:songFile,
             cover_img:coverImg,
         }
@@ -96,7 +98,7 @@ export default function CreateSong({ song, formType,artistId }) {
                             <label htmlFor="songFile" className='create-song-label'>Upload a song file </label>
                         )}
                         <input
-                            id="profile_picture"
+                            id="songFile"
                             className='create-song-input'
                             type="file"
                             accept="audio/*"

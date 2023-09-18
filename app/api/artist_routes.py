@@ -71,13 +71,13 @@ def update_artist(id):
     if form.validate_on_submit():
         name = request.form.get('name')
         bio = request.form.get('bio')
-        profile_pic = request.files.get('profile_pic')
+        profile_picture = request.files.get('profile_picture')
         artist.name = name
         artist.bio = bio
 
-        if profile_pic:
-            upload = upload_file_to_s3_artist_img(profile_pic)
-            artist.profile_picture = upload['url']
+        
+        upload = upload_file_to_s3_artist_img(profile_picture)
+        artist.profile_picture = upload['url']
 
 
         db.session.commit()

@@ -1,5 +1,4 @@
 import './index.css'
-import SongPlayer from '../SongPlayer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
@@ -17,11 +16,22 @@ export default function ArtistDetails() {
     const artist = useSelector(state => state.artists.singleArtist)
     const songs_by_artists = useSelector(state => state.songs.allSongs)
     const filteredSongs = Object.values(songs_by_artists).filter(song => song.artist_id === Number(artistId));
+
     console.log(filteredSongs)
+
+    // NEW STUFF
+    const [isArtistUpdated, setIsArtistUpdated] = useState(false);
     useEffect(() => {
         dispatch(artistActions.getOneArtistThunk(artistId))
         dispatch(songActions.getAllSongsThunk())
     }, [dispatch, artistId])
+    useEffect(() => {
+        if (isArtistUpdated) {
+          dispatch(artistActions.getOneArtistThunk(artistId));
+          // Reset the flag after re-fetching
+          setIsArtistUpdated(false);
+        }
+      }, [dispatch, artistId, isArtistUpdated]);
     return (
         <>
             {artist && songs_by_artists &&
@@ -30,7 +40,7 @@ export default function ArtistDetails() {
                         <>
                             <div className='admin-btns'>
                                 <OpenModalButton
-                                    modalComponent={<DeleteArtistModal artistId={artist.id} />}
+                                    modalComponent={<DeleteArtistModal artistId={artistId} />}
                                     className="delete-artist-btn"
                                     buttonText={
                                         "Delete Artist Profile"
@@ -38,7 +48,7 @@ export default function ArtistDetails() {
                                 />
                                 {/* Update */}
                                 <OpenModalButton
-                                    modalComponent={<CreateArtist artist={artist} formType={"Update Artist"} />}
+                                    modalComponent={<CreateArtist artist={artist} formType={"Update Artist"} onArtistUpdated={() => setIsArtistUpdated(true)}/>}
                                     className="update-artist-btn"
                                     buttonText={"Update Artist Profile"}
                                 />
@@ -57,7 +67,7 @@ export default function ArtistDetails() {
                         {artist.user_id === user.id ?
                             <div className='admin-btns'>
                                 <OpenModalButton
-                                    modalComponent={<CreateSong artistId={artistId}/>}
+                                    modalComponent={<CreateSong artistId={artist.id}/>}
                                     className="update-song-btn"
                                     buttonText={"Create"}
                                 />

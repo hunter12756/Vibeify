@@ -76,16 +76,17 @@ def update_songs(id):
 
     if form.validate_on_submit():
 
-        song.title = request.form.get('title'),
+        title = (request.form.get('title'))
         song_file = request.files.get('song_file')
-        cover_img = request.files.get('cover_img')
-        if song_file:
-            upload = upload_file_to_s3_song_file(song_file)
-            song.song_file = upload['url']
-        if cover_img:
-            upload2= upload_file_to_s3_song_img(cover_img)
-            song.cover_img = upload2['url']
+        upload = upload_file_to_s3_song_file(song_file)
 
+        cover_img = request.files.get('cover_img')
+        upload2= upload_file_to_s3_song_img(cover_img)
+
+        song.song_file = upload['url']
+
+        song.cover_img = upload2['url']
+        song.title = title
         db.session.commit()
 
         return song.to_dict(),201

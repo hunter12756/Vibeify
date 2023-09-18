@@ -5,13 +5,13 @@ import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as artistsActions from '../../store/artist';
 
-export default function CreateArtist({ artist, formType ,userId}) {
+export default function CreateArtist({ artist, formType,onArtistUpdated}) {
     const dispatch = useDispatch();
-    const user_id = userId;
-    console.log("USERID BEING LOADED:",user_id)
+
     const history = useHistory();
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
+    console.log("USERID BEING LOADED:",user.id)
     const [name, setName] = useState(formType === 'Update Artist' ? artist.name : '');
     const [bio, setBio] = useState(formType === 'Update Artist' ? artist.bio : '');
 
@@ -19,6 +19,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
     const [imageLoading, setImageLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
+    const [isUnmounted, setIsUnmounted] = useState(false);
 
     useEffect(() => {
         const errors = {};
@@ -29,11 +30,17 @@ export default function CreateArtist({ artist, formType ,userId}) {
             errors.name = 'Name must be between 10 and 50 characters.'
         };
         if (profile_picture === null) {
-            errors.profile_picturege = 'Please select an image to upload.'
+            errors.profile_picture = 'Please select an image to upload.'
         }
         setErrors(errors)
     }, [bio, name, profile_picture]);
-
+    useEffect(() => {
+        // Cleanup function to set the flag when the component unmounts
+        return () => {
+          setIsUnmounted(true);
+        };
+      }, []);
+      
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -41,25 +48,30 @@ export default function CreateArtist({ artist, formType ,userId}) {
             name,
             bio,
             profile_picture,
-            user_id: user_id
+            user_id: user.id
         }
 
         if (formType === 'Update Artist') {
             await dispatch(artistsActions.updateArtistThunk(newArtist, artist.id))
                 .then(() => {
-                    closeModal()
-                    history.push(`/artists/${artist.id}`)
-                })
+                    if (!isUnmounted) {
+                        closeModal();
+                        history.push(`/artists/${artist.id}`);
+                        onArtistUpdated();
+                      }
+                    })
                 .catch((e) => {
-                    console.error("Error making artist profile: ", e)
+                    console.error("Error updating artist profile: ", e)
                 })
         } else {
             await dispatch(artistsActions.createArtistThunk(newArtist))
                 .then((data) => {
-                    closeModal()
-                    console.log('artistID REDIRECT',data.id)
-                    console.log("********* maybe bad data,",data)
-                    history.push(`/artists/${data.id}`)
+                    if (!isUnmounted) {
+                        closeModal();
+                        console.log('artistID REDIRECT',data.id)
+                        console.log("********* maybe bad data,",data)
+                        history.push(`/artists/${data.id}`)
+                      }
                 })
                 .catch((e) => {
                     console.error("Error making artist profile: ", e)
@@ -110,9 +122,9 @@ export default function CreateArtist({ artist, formType ,userId}) {
                     </div>
                     <div className="form-artist">
                         {formType === 'Update Artist' ? (
-                            <label htmlFor="profile_picture" className='create-artist-label'>Update the Image {errors.image && <p className="errors">{errors.image}</p>}</label>
+                            <label htmlFor="profile_picture" className='create-artist-label'>Update the Image {errors.profile_picture && <p className="errors">{errors.profile_picture}</p>}</label>
                         ) : (
-                            <label htmlFor="profile_picture" className='create-artist-label'>Upload an Image {errors.image && <p className="errors">{errors.image}</p>}</label>
+                            <label htmlFor="profile_picture" className='create-artist-label'>Upload an Image {errors.profile_picture && <p className="errors">{errors.profile_picture}</p>}</label>
                         )}
                         <input
                             id="profile_picture"
@@ -120,7 +132,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
                             type="file"
                             accept="image/*"
                             onChange={(e) => { console.log(e.target.files[0]); setProfilePicture(e.target.files[0]) }}
-                            required={!formType === 'Update Artist'}
+                            required={!formType}
                         />
                     </div>
                     {imageLoading && <p>Loading...</p>}
