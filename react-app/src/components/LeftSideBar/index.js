@@ -19,12 +19,12 @@ export default function LeftBar({ isLoaded }) {
                                  Home
                             </div>
                         </NavLink>
-                        <NavLink exact to='/search'>
+                        {/* <NavLink exact to='/search'>
                             <div>
                                 <img id='icon-img' src='/images/searchicon.png'></img>
                                  Search
                             </div>
-                        </NavLink>
+                        </NavLink> */}
                     </div>
                 </div>
             }
@@ -36,13 +36,13 @@ export default function LeftBar({ isLoaded }) {
                             <div className='playlist'>
                                 <h4>Create your first playlist</h4>
                                 <p>It's easy, we'll help you</p>
-                                <button
+                                {/* <button
                                 id='create-playlist-btn'
                                 // onClick={history.push('/playlist/create')}>
                                 >
 
                                 Create Playlist
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                         :

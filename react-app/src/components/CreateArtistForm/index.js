@@ -15,7 +15,7 @@ export default function CreateArtist({ artist, formType,onArtistUpdated}) {
     const [name, setName] = useState(formType === 'Update Artist' ? artist.name : '');
     const [bio, setBio] = useState(formType === 'Update Artist' ? artist.bio : '');
 
-    const [profile_picture, setProfilePicture] = useState(formType==='Update Artist' ? artist.profile_picture : null);
+    const [profile_picture, setProfilePicture] = useState(formType==='Update Artist' ? null : null);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
@@ -23,12 +23,19 @@ export default function CreateArtist({ artist, formType,onArtistUpdated}) {
 
     useEffect(() => {
         const errors = {};
+        if(!bio){
+            errors.bio='Bio is required'
+        }
         if (bio.length < 10 || bio.length > 255) {
             errors.bio = 'Bio must be between 10 and 255 characters.'
         };
+        if(!name){
+            errors.name='Name is required'
+        }
         if (name.length < 10 || name.length > 50) {
             errors.name = 'Name must be between 10 and 50 characters.'
         };
+
         if (profile_picture === null) {
             errors.profile_picture = 'Please select an image to upload.'
         }
@@ -40,7 +47,7 @@ export default function CreateArtist({ artist, formType,onArtistUpdated}) {
           setIsUnmounted(true);
         };
       }, []);
-      
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -137,11 +144,11 @@ export default function CreateArtist({ artist, formType,onArtistUpdated}) {
                     </div>
                     {imageLoading && <p>Loading...</p>}
                     {formType === 'Update Artist' ? (
-                        <button type="submit" className="form-submit" id="updateSubmit" disabled={bio.length < 10 || bio.length > 255 || name.length < 10 || name.length > 50}>
+                        <button type="submit" className="form-submit" id="updateSubmit" disabled={bio.length < 10 || bio.length > 255 || name.length < 10 || name.length > 50 || !bio || !name || profile_picture===null}>
                             Update your Artist Profile
                         </button>
                     ) : (
-                        <button type="submit" className="form-submit" id="createSubmit" disabled={bio.length < 10 || bio.length > 255 || name.length < 10 || name.length > 50 ||  profile_picture === null}>
+                        <button type="submit" className="form-submit" id="createSubmit" disabled={bio.length < 10 || bio.length > 255 || name.length < 10 || name.length > 50 || !bio || !name || profile_picture === null}>
                             Create Artist Profile
                         </button>
                     )}

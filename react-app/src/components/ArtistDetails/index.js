@@ -1,6 +1,6 @@
 import './index.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink,useHistory  } from 'react-router-dom'
 import React, { useState, useEffect } from 'react';
 import * as artistActions from '../../store/artist'
 import * as songActions from '../../store/song'
@@ -12,7 +12,11 @@ import CreateSong from '../CreateSong';
 export default function ArtistDetails() {
     const { artistId } = useParams()
     const dispatch = useDispatch()
+    const history = useHistory()
     const user = useSelector(state => state.session.user)
+    if(!user){
+        history.push("/")
+    }
     const artist = useSelector(state => state.artists.singleArtist)
     const songs_by_artists = useSelector(state => state.songs.allSongs)
     const filteredSongs = Object.values(songs_by_artists).filter(song => song.artist_id === Number(artistId));
@@ -34,7 +38,7 @@ export default function ArtistDetails() {
       }, [dispatch, artistId, isArtistUpdated]);
     return (
         <>
-            {artist && songs_by_artists &&
+            {artist && songs_by_artists && user &&
                 <>
                     {artist.user_id === user.id ?
                         <>

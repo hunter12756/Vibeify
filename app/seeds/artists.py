@@ -13,27 +13,27 @@ def seed_artists():
     ]
     artists_name=sorted(artists_name_unsorted)
     image_links = [
-    "https://i.imgur.com/RGD1VZW.jpg",
+    "https://i.imgur.com/nLa13i8.jpg",
     "https://i.imgur.com/fuP3NvA.jpg",
-    "https://i.imgur.com/FEv4nWh.jpg",
-    "https://i.imgur.com/8tidKRr.jpg",
-    "https://i.imgur.com/VsiDRBj.jpg",
-    "https://i.imgur.com/MM4jb8f.jpg",
-    "https://i.imgur.com/TckJyd5.jpg",
-    "https://i.imgur.com/TNjo9eC.jpg",
-    "https://i.imgur.com/V0Ajqb1.jpg",
-    "https://i.imgur.com/BRZ3hws.jpg",
     "https://i.imgur.com/06MhbRi.jpg",
+    "https://i.imgur.com/0RxiV8A.jpg",
     "https://i.imgur.com/YxmKewR.jpg",
-    "https://i.imgur.com/lDYkFmG.jpg",
+    "https://i.imgur.com/TNjo9eC.jpg",
+    "https://i.imgur.com/iv82xw9.jpg",
     "https://i.imgur.com/lpsNtz6.jpg",
     "https://i.imgur.com/Fh8SgZh.jpg",
+    "https://i.imgur.com/lDYkFmG.jpg",
+    "https://i.imgur.com/RGD1VZW.jpg",
+    "https://i.imgur.com/V0Ajqb1.jpg",
+    "https://i.imgur.com/BRZ3hws.jpg",
+    "https://i.imgur.com/VsiDRBj.jpg",
     "https://i.imgur.com/uTJiGmU.jpg",
-    "https://i.imgur.com/0RxiV8A.jpg",
+    "https://i.imgur.com/TckJyd5.jpg",
     "https://i.imgur.com/FcGcmRL.jpg",
-    "https://i.imgur.com/nLa13i8.jpg",
-    "https://i.imgur.com/iv82xw9.jpg",
-    "https://i.imgur.com/XzDQCW9.jpg"
+    "https://i.imgur.com/8tidKRr.jpg",
+    "https://i.imgur.com/FEv4nWh.jpg",
+    "https://i.imgur.com/XzDQCW9.jpg" ,
+    "https://i.imgur.com/MM4jb8f.jpg"
 ]
 
     artists = []

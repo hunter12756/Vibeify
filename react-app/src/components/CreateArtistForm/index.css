@@ -23,7 +23,7 @@
   }
 
   .create-artist-input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #fff;
@@ -40,7 +40,7 @@
 
   /* Button style */
   .form-submit {
-    background-color: #1db954;
+    background-color: #8a6be8;
     color: #fff;
     font-size: 18px;
     padding: 10px 20px;
@@ -48,7 +48,11 @@
     border-radius: 5px;
     cursor: pointer;
   }
-
+  .form-submit:disabled{
+    cursor: not-allowed;
+    color:white;
+    background-color: grey;
+  }
   .form-submit:hover {
-    background-color: #169543;
+    background-color: #6f56d9;
   }

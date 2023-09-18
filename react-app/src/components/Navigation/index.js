@@ -60,11 +60,14 @@ function Navigation({ isLoaded }) {
 								</NavLink>
 							) : (
 								// Prompt to create an artist page
-								<OpenModalButton
-									modalComponent={<CreateArtist  />}
-									className="update-artist-btn"
-									buttonText={"Create Your Artist Profile"}
-								/>
+								<div className="create-artist-btn">
+
+									<OpenModalButton
+										modalComponent={<CreateArtist  />}
+
+										buttonText={"Create Your Artist Profile"}
+									/>
+								</div>
 							)}
 						</>
 					) :

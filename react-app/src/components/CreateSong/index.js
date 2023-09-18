@@ -13,21 +13,29 @@ export default function CreateSong({ song, formType }) {
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
     const [title, setTitle] = useState(formType === 'Update Song' ? song.title : '');
-    const [coverImg,setCoverImg] = useState(formType === 'Update Song' ? song.cover_img : '');
+    const [coverImg,setCoverImg] = useState(formType === 'Update Song' ? null : null);
     const artist = useSelector(state=>state.artists.singleArtist)
 
-    const [songFile, setSongFile] = useState(formType==='Update Song' ? song.song_file:'');
+    const [songFile, setSongFile] = useState(formType==='Update Song' ? null:null);
     const [imageLoading, setImageLoading] = useState(false);
     const [errors, setErrors] = useState({});
     console.log(artist.id)
     useEffect(() => {
         const errors = {};
-
+        if(!title){
+            errors.title='Title is required'
+        }
         if (title.length < 10 || title.length > 50) {
-            errors.title = 'Name must be between 10 and 50 characters.'
+            errors.title = 'Title must be between 10 and 50 characters.'
         };
         if (coverImg === null) {
             errors.cover_img = 'Please select an image to upload.'
+        }
+        if(songFile ===null) {
+            errors.song_file='Please select a file to upload'
+        }
+        if(!(songFile.endsWith('.mp3'))){
+            errors.song_file='Please ONLY upload a file ending in .mp3'
         }
         setErrors(errors)
     }, [title,coverImg]);
@@ -94,9 +102,9 @@ export default function CreateSong({ song, formType }) {
                     </div>
                     <div className="form-song">
                         {formType === 'Update Song' ? (
-                            <label htmlFor="songFile" className='create-song-label'>Update the song File </label>
+                            <label htmlFor="songFile" className='create-song-label'>Update the song File {errors.song_file && <p className="errors">{errors.song_file}</p>}</label>
                         ) : (
-                            <label htmlFor="songFile" className='create-song-label'>Upload a song file </label>
+                            <label htmlFor="songFile" className='create-song-label'>Upload a song file {errors.song_file && <p className="errors">{errors.song_file}</p>}</label>
                         )}
                         <input
                             id="songFile"
@@ -110,9 +118,9 @@ export default function CreateSong({ song, formType }) {
 
                     <div className="form-song">
                         {formType === 'Update Song' ? (
-                            <label htmlFor="coverImg" className='create-song-label'>Update the Cover Image </label>
+                            <label htmlFor="coverImg" className='create-song-label'>Update the Cover Image  {errors.cover_img && <p className="errors">{errors.cover_img}</p>}</label>
                         ) : (
-                            <label htmlFor="coverImg" className='create-song-label'>Upload a Cover Image </label>
+                            <label htmlFor="coverImg" className='create-song-label'>Upload a Cover Image {errors.cover_img && <p className="errors">{errors.cover_img}</p>}</label>
                         )}
                         <input
                             id="coverImg"
@@ -125,11 +133,11 @@ export default function CreateSong({ song, formType }) {
                     </div>
                     {imageLoading && <p>Loading...</p>}
                     {formType === 'Update Song' ? (
-                        <button type="submit" className="form-submit" id="updateSubmit" disabled={title.length<10}>
+                        <button type="submit" className="form-submit" id="updateSubmit" disabled={title.length<10 || title.length> 50 || !title || songFile===null | coverImg ===null || !songFile.endsWith('.mp3')}>
                             Update your Song
                         </button>
                     ) : (
-                        <button type="submit" className="form-submit" id="createSubmit" disabled={title.length < 10}>
+                        <button type="submit" className="form-submit" id="createSubmit" disabled={title.length < 10 || title.length> 50 || !title || songFile===null | coverImg ===null || !songFile.endsWith('.mp3')}>
                             Create Song
                         </button>
                     )}
