@@ -28,4 +28,5 @@ sqlalchemy==1.4.46
 werkzeug==2.2.2
 wtforms==3.0.1
 boto3==1.28.36
+email-validator==2.0.0
 faker==5.0.0

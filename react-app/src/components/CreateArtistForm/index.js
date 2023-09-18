@@ -8,6 +8,7 @@ import * as artistsActions from '../../store/artist';
 export default function CreateArtist({ artist, formType ,userId}) {
     const dispatch = useDispatch();
     const user_id = userId;
+    console.log("USERID BEING LOADED:",user_id)
     const history = useHistory();
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
