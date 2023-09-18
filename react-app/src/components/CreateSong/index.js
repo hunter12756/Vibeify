@@ -34,9 +34,7 @@ export default function CreateSong({ song, formType }) {
         if(songFile ===null) {
             errors.song_file='Please select a file to upload'
         }
-        if(!(songFile.endsWith('.mp3'))){
-            errors.song_file='Please ONLY upload a file ending in .mp3'
-        }
+
         setErrors(errors)
     }, [title,coverImg]);
     useEffect(()=>{
@@ -81,7 +79,7 @@ export default function CreateSong({ song, formType }) {
                 {formType === 'Update Song' ? (
                     <h1 className="form-heading">Update your Song</h1>
                 ) :
-                    <h1 className="form-heading">Upload your new Song</h1>
+                    <h1 className="form-heading">Upload your new Song(mp3)</h1>
                 }
 
                 <form onSubmit={handleSubmit} encType="mulitpart/form-data">
@@ -133,11 +131,11 @@ export default function CreateSong({ song, formType }) {
                     </div>
                     {imageLoading && <p>Loading...</p>}
                     {formType === 'Update Song' ? (
-                        <button type="submit" className="form-submit" id="updateSubmit" disabled={title.length<10 || title.length> 50 || !title || songFile===null | coverImg ===null || !songFile.endsWith('.mp3')}>
+                        <button type="submit" className="form-submit" id="updateSubmit" disabled={title.length<10 || title.length> 50 || !title || songFile===null || coverImg ===null }>
                             Update your Song
                         </button>
                     ) : (
-                        <button type="submit" className="form-submit" id="createSubmit" disabled={title.length < 10 || title.length> 50 || !title || songFile===null | coverImg ===null || !songFile.endsWith('.mp3')}>
+                        <button type="submit" className="form-submit" id="createSubmit" disabled={title.length < 10 || title.length> 50 || !title || songFile===null || coverImg ===null  }>
                             Create Song
                         </button>
                     )}
