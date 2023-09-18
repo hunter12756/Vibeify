@@ -1,4 +1,4 @@
-.audo-visualizer-container{
+/* .audo-visualizer-container{
     display: inline-flex;
     height:500px;
     width:800px;
@@ -7,4 +7,107 @@
 .song-details-container{
     display: flex;
 
-}
+} */
+/* Style for the main container */
+
+/* .song-details-container {
+    display: flex;
+    margin-top:20px;
+  }
+
+
+  .song-title {
+    font-size: 36px;
+    color: #8a6be8;
+    margin-bottom: 10px;
+  }
+
+
+  .artist-song-name {
+    font-size: 24px;
+    color: #444;
+    margin-top: 5px;
+    text-decoration: none;
+  }
+
+  .artist-song-name:hover {
+    color: #8a6be8;
+  }
+
+
+  .cover-img-container img {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    border: 5px solid #8a6be8;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+
+  .audo-visualizer-container {
+    display: inline-flex;
+    height:350px;
+    width:800px;
+
+  } */
+
+  /* Style for the main container */
+.song-details-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  /* Style for the cover image container */
+  .cover-img-container {
+    flex: 1 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 20px;
+    justify-content: flex-start;
+  }
+
+  .cover-img-container img {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    border: 5px solid #8a6be8;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+  }
+
+
+  /* Style for the song title */
+  .song-title {
+      font-size: 36px;
+      color: #8a6be8;
+      margin-bottom: 10px;
+    }
+
+    /* Style for the artist name */
+    .artist-song-name {
+        font-size: 24px;
+        color: #444;
+        margin-top: 5px;
+        text-decoration: none;
+    }
+
+    .artist-song-name:hover {
+        color: #8a6be8;
+    }
+    /* Style for the audio visualizer container */
+    .audio-visualizer-container {
+      flex: 1; /* Take up 50% of the available space */
+      width: 100%;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .audio-visualizer-container > .css-tg9irj{
+        width:800px;
+        height:600px;
+    }

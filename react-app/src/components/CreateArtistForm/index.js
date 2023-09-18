@@ -69,7 +69,7 @@ export default function CreateArtist({ artist, formType }) {
 
     return (
         <>
-            <div>
+            <div className='form-container'>
                 {formType === 'Update Artist' ? (
                     <h1 className="form-heading">Update your Artist Profile</h1>
                 ) :

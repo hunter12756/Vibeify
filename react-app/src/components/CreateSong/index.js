@@ -1,13 +1,14 @@
 import './index.css';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory ,useParams} from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as songsActions from '../../store/song';
 
-export default function CreateSong({ song, formType }) {
+export default function CreateSong({ song, formType,artistId }) {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const artist_id = artistId
+    console.log("THIS IS ARTIST ID USED IN CREATE SONG",artistId)
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
     const [title, setTitle] = useState(formType === 'Update Song' ? song.title : '');
@@ -34,9 +35,9 @@ export default function CreateSong({ song, formType }) {
 
         const newSong = {
             title,
+            artist_id: artist_id,
             song_file:songFile,
             cover_img:coverImg,
-            artist_id: user.id
         }
 
         if (formType === 'Update Song') {
@@ -45,7 +46,7 @@ export default function CreateSong({ song, formType }) {
                     closeModal()
                 })
                 .catch((e) => {
-                    console.error("Error making artist profile: ", e)
+                    console.error("Error updating song: ", e)
                 })
         } else {
             dispatch(songsActions.createSongThunk(newSong))
@@ -53,7 +54,7 @@ export default function CreateSong({ song, formType }) {
                     closeModal()
                 })
                 .catch((e) => {
-                    console.error("Error making artist profile: ", e)
+                    console.error("Error making song: ", e)
                 })
         }
     setTitle("");
@@ -63,7 +64,7 @@ export default function CreateSong({ song, formType }) {
 
     return (
         <>
-            <div>
+            <div className='form-container'>
                 {formType === 'Update Song' ? (
                     <h1 className="form-heading">Update your Song</h1>
                 ) :
@@ -73,9 +74,9 @@ export default function CreateSong({ song, formType }) {
                 <form onSubmit={handleSubmit} encType="mulitpart/form-data">
                     <div className='form-song'>
                         {formType === 'Update Song' ? (
-                            <label htmlFor="title" className='create-artist-label'>Update the Title {errors.title && <p className="errors">{errors.title}</p>}</label>
+                            <label htmlFor="title" className='create-song-label'>Update the Title {errors.title && <p className="errors">{errors.title}</p>}</label>
                         ) : (
-                            <label htmlFor="title" className='create-artist-label'>Song Title {errors.title && <p className="errors">{errors.title}</p>}</label>
+                            <label htmlFor="title" className='create-song-label'>Song Title {errors.title && <p className="errors">{errors.title}</p>}</label>
                         )}
                         <input
                             id="title"
@@ -94,11 +95,11 @@ export default function CreateSong({ song, formType }) {
                         )}
                         <input
                             id="profile_picture"
-                            className='create-artist-input'
+                            className='create-song-input'
                             type="file"
                             accept="audio/*"
                             onChange={(e) => { console.log(e.target.files[0]); setSongFile(e.target.files[0]) }}
-                            required={!formType === 'Update Artist'}
+                            required={!formType === 'Update Song'}
                         />
                     </div>
 
@@ -114,11 +115,11 @@ export default function CreateSong({ song, formType }) {
                             type="file"
                             accept="image/*"
                             onChange={(e) => { console.log(e.target.files[0]); setCoverImg(e.target.files[0]) }}
-                            required={!formType === 'Update Artist'}
+                            required={!formType === 'Update Song'}
                         />
                     </div>
                     {imageLoading && <p>Loading...</p>}
-                    {formType === 'Update Artist' ? (
+                    {formType === 'Update Song' ? (
                         <button type="submit" className="form-submit" id="updateSubmit" disabled={title.length<10}>
                             Update your Song
                         </button>

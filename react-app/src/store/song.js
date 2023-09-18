@@ -70,23 +70,42 @@ export const getOneSongThunk = (songId) => async (dispatch) => {
 }
 
 export const createSongThunk = (song) => async (dispatch) => {
-    const { artist_id } = song
-    const res = await fetch(`/api/songs/artists/${artist_id}`, {
-        method: 'POST',
-        body: song
-    })
-    const data = await res.json()
+    console.log(song)
+    const formData = new FormData();
 
+    formData.append("title", song.title);
+    formData.append("artist_id",song.artist_id);
+    formData.append("song_file", song.song_file);
+    formData.append("cover_img", song.cover_img);
+    const res = await fetch(`/api/songs/create`, {
+        method: 'POST',
+        body: formData
+    })
+    console.log("SONG RESPONS: ",res)
+
+    const data = await res.json()
+    console.log("SONG DATA: ",data)
     if (data && !data.errors) dispatch(createSong(data))
 
     return data
 }
 
-export const updateSongThunk = (song) => async (dispatch) => {
-    const { id } = song
-    const res = await fetch(`/api/songs/${id}`, {
+export const updateSongThunk = (song,songId) => async (dispatch) => {
+
+    const formData = new FormData();
+    formData.append("title", song.description);
+
+
+    if (song.cover_img) {
+        formData.append("cover_img", song.cover_img);
+    }
+    if (song.song_file) {
+        formData.append("song_file",song.song_file)
+    }
+
+    const res = await fetch(`/api/songs/${songId}`, {
         method: 'PUT',
-        body: song
+        body: formData
     })
     const data = await res.json()
 
@@ -107,7 +126,7 @@ export const deleteSongThunk = (songId) => async (dispatch) => {
 }
 
 // Reducer
-const initialState = { allSongs: {}, singleSong: {} }
+const initialState = { allSongs: {}, singleSong: {},currentSong:{} }
 // mess with action.payload stuff
 export const songReducer = (state = initialState, action) => {
     let newState;
@@ -116,7 +135,6 @@ export const songReducer = (state = initialState, action) => {
             const songs = flatten(action.payload.songs)
             newState = { ...state, allSongs: songs }
             return newState;
-
         case GET_ONE_SONG:
             const song = (action.payload.song)
             newState = {...state, singleSong: song}

@@ -1,5 +1,5 @@
 const GET_ARTISTS = 'artists/all'
-const GET_ONE_ARTIST = 'artists/oneSong'
+const GET_ONE_ARTIST = 'artists/oneArtist'
 const UPDATE_ARTIST = 'artists/update'
 const CREATE_ARTIST = 'artists/create'
 const DELETE_ARTIST = 'artists/delete'
@@ -74,7 +74,6 @@ export const getOneArtistThunk = (artistId) => async (dispatch) => {
     const res = await fetch(`/api/artists/${artistId}`)
 
     const data = await res.json()
-    //want to maybe add it to currentSong
     if (data && !data.errors) dispatch(getOneArtist(data))
     return data
 }
@@ -99,11 +98,18 @@ export const createArtistThunk = (artist) => async (dispatch) => {
     return data
 }
 // Not Done yet
-export const updateArtistThunk = (artist) => async (dispatch) => {
-    const { id } = artist
-    const res = await fetch(`/api/artists/${id}`, {
+export const updateArtistThunk = (artist,artistId) => async (dispatch) => {
+
+    const formData = new FormData();
+
+    formData.append("name", artist.name);
+    formData.append("bio", artist.bio);
+    if(artist.profile_picture){
+        formData.append("profile_picture", artist.profile_picture);
+    }
+    const res = await fetch(`/api/artists/${artistId}`, {
         method: 'PUT',
-        body: artist
+        body: formData
     })
     const data = await res.json()
 
@@ -130,13 +136,13 @@ export const artistReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case GET_ARTISTS:
-            const songs = flatten(action.payload.artists)
-            newState = { ...state, allArtists: songs }
+            const artists = flatten(action.payload.artists)
+            newState = { ...state, allArtists: artists }
             return newState;
 
         case GET_ONE_ARTIST:
-            const song = (action.payload.artist)
-            newState = {...state, singleArtist: song}
+            const artist = (action.payload.artist)
+            newState = {...state, singleArtist: artist}
             return newState;
         case CREATE_ARTIST:
             newState = { ...state, allArtists: { ...state.allArtists, [action.payload.id]: action.payload } }

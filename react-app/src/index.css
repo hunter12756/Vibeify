@@ -5,6 +5,7 @@ body{
 }
 * {
     font-family: 'Circular Std Black';
+    text-decoration: none;
 }
 
 @font-face {

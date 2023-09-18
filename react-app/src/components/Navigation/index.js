@@ -56,7 +56,7 @@ function Navigation({ isLoaded }) {
 								// Content to display when the artist page exists
 								<NavLink to={`/artists/${filteredArtistId}`}>
 
-									<div>Your artist page </div>
+									<button className='your-artist-btn'>Your artist page </button>
 								</NavLink>
 							) : (
 								// Prompt to create an artist page

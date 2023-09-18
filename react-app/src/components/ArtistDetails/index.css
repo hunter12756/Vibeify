@@ -8,3 +8,28 @@
     border-radius: 10px;
 
 }
+/* Style for the admin buttons */
+.admin-btns {
+    display: flex;
+  }
+
+  .admin-btns>*{
+    background-color: #8a6be8;
+    color: #fff;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+  }
+  .admin-btns>*:hover {
+    background-color: #6f56d9;
+  }
+  .song-link-title{
+    color:#8a6be8;
+  }
+  .song-link-title:hover{
+    color:#6f56d9
+  }

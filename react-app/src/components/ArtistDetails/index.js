@@ -28,7 +28,7 @@ export default function ArtistDetails() {
                 <>
                     {artist.user_id === user.id ?
                         <>
-                            <div>
+                            <div className='admin-btns'>
                                 <OpenModalButton
                                     modalComponent={<DeleteArtistModal artistId={artist.id} />}
                                     className="delete-artist-btn"
@@ -47,7 +47,7 @@ export default function ArtistDetails() {
                         :
                         ''
                     }
-                    <h1>{artist.name}</h1>
+                    <h1 className='artist-name'>{artist.name}</h1>
 
                     <div className='artist-details-container'>
                         <div className='cover-img-container'>
@@ -55,9 +55,9 @@ export default function ArtistDetails() {
                         </div>
                         <h1>Songs</h1>
                         {artist.user_id === user.id ?
-                            <div>
+                            <div className='admin-btns'>
                                 <OpenModalButton
-                                    modalComponent={<CreateSong />}
+                                    modalComponent={<CreateSong artistId={artistId}/>}
                                     className="update-song-btn"
                                     buttonText={"Create"}
                                 />
@@ -69,13 +69,13 @@ export default function ArtistDetails() {
                                 return (
                                     <>
                                         <div className='song-info'>
-                                            <NavLink to={`/songs/${song.id}`}>
+                                            <NavLink className='link-to-song' to={`/songs/${song.id}`}>
 
-                                                <h3>{song.title}</h3>
+                                                <h3 className='song-link-title'>{song.title}</h3>
                                             </NavLink>
                                             {artist.user_id === user.id ?
                                                 <>
-                                                    <div>
+                                                    <div className='admin-btns'>
                                                         <OpenModalButton
                                                             modalComponent={<DeleteSongModal songId={song.id} />}
                                                             className="delete-song-btn"

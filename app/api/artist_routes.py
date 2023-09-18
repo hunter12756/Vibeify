@@ -42,7 +42,6 @@ def create_artist():
     upload = upload_file_to_s3_artist_img(artist_img)
     if 'url' not in upload:
         return upload
-        # other form data
 
     new_artist = Artist(
         name=request.form.get('name'),
@@ -54,7 +53,7 @@ def create_artist():
     db.session.commit()
 
     return new_artist.to_dict(),201
-    # return json.dumps([{'artist':new_artist.to_dict()}]),201
+
 # if form.errors:
 #     return form.errors
 
@@ -64,7 +63,7 @@ def create_artist():
 def update_artist(id):
     artist = Artist.query.get(id)
     if not artist:
-        return jsonify({'message':'Song not found'}),404
+        return jsonify({'message':'Artist not found'}),404
 
     form = ArtistForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -98,5 +97,5 @@ def delete_artist(id):
         db.session.delete(artist)
         db.session.commit()
     if artist==None:
-        return {'message':'Artist delete successfully'}
+        return {'message':'Artist deleted successfully'}
     return json.dumps([[{'message':'Artist not found'}]]),404

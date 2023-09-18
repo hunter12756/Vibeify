@@ -21,7 +21,7 @@ export default function SongPlayer({ songId}){
     // useeffect to look for change of currentSong variable
     // in dependenacy array put songID or song attribute
     useEffect(() => {
-        dispatch(songActions.getOneSongThunk(songId))
+
     },[dispatch])
     return(
         <>

@@ -1,0 +1,54 @@
+/* Style for the main container */
+.form-container {
+    text-align: center;
+    background-color: rgb(55, 52, 52);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 400px;
+  }
+
+  /* Form heading style */
+  .form-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  /* Label and input styles */
+  .create-song-label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .create-song-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+  }
+
+  /* Error message style */
+  .errors {
+    color: #ff0000;
+    margin-top: 5px;
+  }
+
+  /* Button style */
+  .form-submit {
+    background-color: #1db954;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .form-submit:hover {
+    background-color: #169543;
+  }

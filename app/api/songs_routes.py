@@ -33,9 +33,9 @@ def artist_songs(artistId):
     return json.dumps({'songs':[song.to_dict() for song in songs]})
 
 #create new song
-@song_routes.route('/artists/<int:artistId>',methods=['POST'])
+@song_routes.route('/create',methods=['POST'])
 @login_required
-def create_song(artistId):
+def create_song():
     form = SongForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -43,20 +43,23 @@ def create_song(artistId):
         cover_img = request.files.get('cover_img')
         upload = upload_file_to_s3_song_img(cover_img)
         song_file = request.files.get('song_file')
-        upload2= upload_file_to_s3_song_file(song_file)
-        title = request.form.get('title')
-        artistId= request.form.get('artist_id')
-        new_song = Song(
-            title=title,
-            artist_id=artistId,
-            song_file=upload2['url'],
-            cover_img=upload['url']
+        upload2 = upload_file_to_s3_song_file(song_file)
 
+        if 'url' not in upload:
+            return upload
+        if 'url' not in upload2:
+            return upload
+
+        new_song = Song(
+            title=request.form.get('title'),
+            artist_id=int(request.form.get('artist_id')),
+            song_file=upload2['url'],
+            cover_img=upload['url'],
         )
         db.session.add(new_song)
         db.session.commit()
 
-        return json.dumps([{'song':new_song.to_dict()}]),201
+        return new_song.to_dict(),201
     if form.errors:
         return form.errors
 
@@ -72,12 +75,20 @@ def update_songs(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        song.title = form.data['title'],
-        song.song_file = form.data['song_file']
+
+        song.title = request.form.get('title'),
+        song_file = request.files.get('song_file')
+        cover_img = request.files.get('cover_img')
+        if song_file:
+            upload = upload_file_to_s3_song_file(song_file)
+            song.song_file = upload['url']
+        if cover_img:
+            upload2= upload_file_to_s3_song_img(cover_img)
+            song.cover_img = upload2['url']
 
         db.session.commit()
 
-        return json.dumps([{'song':song.to_dict()}]),201
+        return song.to_dict(),201
     if form.errors:
         return form.errors
 
@@ -91,5 +102,6 @@ def delete_song(id):
     if song:
         db.session.delete(song)
         db.session.commit()
-        return json.dumps([{'message':'Song delete successfully'}])
+    if song==None:
+        return {'message':'Song deleted successfully'}
     return json.dumps([[{'message':'Song not found'}]]),404
