@@ -85,6 +85,7 @@ export const createArtistThunk = (artist) => async (dispatch) => {
     formData.append("name", artist.name);
     formData.append("bio", artist.bio);
     formData.append("profile_picture", artist.profile_picture);
+    formData.append("user_id",artist.user_id)
     const res = await fetch(`/api/artists/create`, {
         method: 'POST',
         body: formData

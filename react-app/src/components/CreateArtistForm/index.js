@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as artistsActions from '../../store/artist';
 
-export default function CreateArtist({ artist, formType }) {
+export default function CreateArtist({ artist, formType ,userId}) {
     const dispatch = useDispatch();
+    const user_id = userId;
     const history = useHistory();
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
@@ -39,7 +40,7 @@ export default function CreateArtist({ artist, formType }) {
             name,
             bio,
             profile_picture,
-            user_id: user.id
+            user_id: user_id
         }
 
         if (formType === 'Update Artist') {

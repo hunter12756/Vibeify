@@ -61,7 +61,7 @@ function Navigation({ isLoaded }) {
 							) : (
 								// Prompt to create an artist page
 								<OpenModalButton
-									modalComponent={<CreateArtist />}
+									modalComponent={<CreateArtist userId={sessionUser.id} />}
 									className="update-artist-btn"
 									buttonText={"Create Your Artist Profile"}
 								/>
