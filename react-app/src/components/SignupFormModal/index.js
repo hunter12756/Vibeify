@@ -27,6 +27,17 @@ function SignupFormModal() {
 				"Confirm Password field must be the same as the Password field",
 			]);
 		}
+		if(username.length < 5 || username.length> 40){
+			setErrors([
+				"Username must be between 5 and 40 characters",
+			]);
+		}
+		if(password.length < 8 || password.length> 255){
+			setErrors([
+				"Password must be between 8 and 255 characters",
+			]);
+		}
+		
 	};
 
 	return (
