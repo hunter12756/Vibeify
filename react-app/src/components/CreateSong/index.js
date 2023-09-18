@@ -8,6 +8,7 @@ import * as songsActions from '../../store/song';
 export default function CreateSong({ song, formType,artistId }) {
     const dispatch = useDispatch();
     const artist_id = artistId
+    const history = useHistory();
     console.log("THIS IS ARTIST ID USED IN CREATE SONG",artistId)
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
@@ -44,6 +45,7 @@ export default function CreateSong({ song, formType,artistId }) {
            await dispatch(songsActions.updateSongThunk(newSong, song.id))
                 .then(() => {
                     closeModal()
+                    history.push(`/artists/${song.artist_id}`)
                 })
                 .catch((e) => {
                     console.error("Error updating song: ", e)
