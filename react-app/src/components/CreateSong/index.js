@@ -9,12 +9,13 @@ export default function CreateSong({ song, formType }) {
     const dispatch = useDispatch();
 
     const history = useHistory();
-    console.log("THIS IS ARTIST ID USED IN CREATE SONG",song.artist_id)
+
     const { closeModal } = useModal();
     const user = useSelector(state => state.session.user)
     const [title, setTitle] = useState(formType === 'Update Song' ? song.title : '');
     const [coverImg,setCoverImg] = useState(formType === 'Update Song' ? song.cover_img : '');
     const artist = useSelector(state=>state.artists.singleArtist)
+
     const [songFile, setSongFile] = useState(formType==='Update Song' ? song.song_file:'');
     const [imageLoading, setImageLoading] = useState(false);
     const [errors, setErrors] = useState({});
