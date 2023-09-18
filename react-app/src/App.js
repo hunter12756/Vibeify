@@ -33,6 +33,7 @@ function App() {
             <ArtistDetails/>
             <SongPlayer/>
           </Route>
+          
         </Switch>
       )}
     </>
