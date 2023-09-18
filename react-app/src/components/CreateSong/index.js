@@ -14,7 +14,7 @@ export default function CreateSong({ song, formType,artistId }) {
     const [title, setTitle] = useState(formType === 'Update Song' ? song.title : '');
     const [coverImg,setCoverImg] = useState(formType === 'Update Song' ? song.cover_img : '');
 
-    const [songFile, setSongFile] = useState(null);
+    const [songFile, setSongFile] = useState(formType==='Update Song' ? song.song_file:'');
     const [imageLoading, setImageLoading] = useState(false);
     const [errors, setErrors] = useState({});
 

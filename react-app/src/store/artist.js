@@ -105,6 +105,7 @@ export const updateArtistThunk = (artist,artistId) => async (dispatch) => {
 
     formData.append("name", artist.name);
     formData.append("bio", artist.bio);
+    
     if(artist.profile_picture){
         formData.append("profile_picture", artist.profile_picture);
     }

@@ -15,7 +15,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
     const [name, setName] = useState(formType === 'Update Artist' ? artist.name : '');
     const [bio, setBio] = useState(formType === 'Update Artist' ? artist.bio : '');
 
-    const [profile_picture, setProfilePicture] = useState(null);
+    const [profile_picture, setProfilePicture] = useState(formType==='Update Artist' ? artist.profile_picture : null);
     const [imageLoading, setImageLoading] = useState(false);
 
     const [errors, setErrors] = useState({});
@@ -48,6 +48,7 @@ export default function CreateArtist({ artist, formType ,userId}) {
             await dispatch(artistsActions.updateArtistThunk(newArtist, artist.id))
                 .then(() => {
                     closeModal()
+                    history.push(`/artists/${artist.id}`)
                 })
                 .catch((e) => {
                     console.error("Error making artist profile: ", e)
