@@ -35,7 +35,6 @@ def seed_songs():
         'Fade Into You','Wish You Were Here','Where Is My Mind','Creep',
         'Superstar','Time Has Come Again','To Forgive','I Know It\'s Over',
         'The Adults Are Talking','Only In Dreams'
-
     ]
 
     for i, object_url in enumerate(object_urls):
