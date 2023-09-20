@@ -36,7 +36,7 @@ export default function CreateSong({ song, formType }) {
         }
 
         setErrors(errors)
-    }, [title,coverImg]);
+    }, [title,coverImg,songFile]);
     useEffect(()=>{
         dispatch(artistActions.getOneArtistThunk(artist.id))
     },[])
