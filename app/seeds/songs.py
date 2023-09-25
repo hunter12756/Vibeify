@@ -27,6 +27,16 @@ def seed_songs():
     for song in song_covers.get('Contents',[]):
         song_url=f"https://{bucket_name2}.s3.amazonaws.com/{song['Key']}"
         song_covers_urls.append(song_url)
+    # count_limit = 21  # Set the limit to 21 items
+    # for obj in objects.get('Contents', [])[:count_limit]:
+    #     object_key_encoded = urllib.parse.quote(obj['Key'])
+    #     object_url = f"https://{bucket_name}.s3.amazonaws.com/{object_key_encoded}"
+    #     object_urls.append(object_url)
+
+    # for song in song_covers.get('Contents', [])[:count_limit]:
+    #     song_url = f"https://{bucket_name2}.s3.amazonaws.com/{song['Key']}"
+    #     song_covers_urls.append(song_url)
+
     songs = []
     songs_titles=[
         'Stuck on the puzzle','No. 1 Party Anthem','Loser',
