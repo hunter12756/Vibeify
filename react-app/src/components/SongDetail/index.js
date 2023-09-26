@@ -67,7 +67,7 @@ export default function SongDetails() {
     // Load the song
     dispatch(songActions.getOneSongThunk(songId));
 
-  }, [dispatch, songId]);
+  }, [dispatch,songId ]);
 
   return (
     <>
@@ -82,6 +82,7 @@ export default function SongDetails() {
               <img src={`${song.cover_img}`} alt="Song Cover" />
             </div>
             <div className="audio-visualizer-container">
+              {/* separate into modal or another page so i can use songplayer to maintain consistency */}
               <SpectrumVisualizer
                 audio={`${song.song_file}`}
                 theme={SpectrumVisualizerTheme.radialSquaredBars}

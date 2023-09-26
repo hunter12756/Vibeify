@@ -42,9 +42,7 @@ function Navigation({ isLoaded }) {
 
 	return (
 		<>
-
 			<div className="navbar">
-
 				{isLoaded && sessionUser ?
 					(
 						<>
@@ -55,7 +53,6 @@ function Navigation({ isLoaded }) {
 							{hasArtistPage && filteredArtist ? (
 								// Content to display when the artist page exists
 								<NavLink to={`/artists/${filteredArtistId}`}>
-
 									<button className='your-artist-btn'>Your artist page </button>
 								</NavLink>
 							) : (
@@ -75,14 +72,12 @@ function Navigation({ isLoaded }) {
 						<div className='login-signup-container'>
 							<OpenModalButton
 								buttonText="Log In"
-
 								onItemClick={closeMenu}
 								modalComponent={<LoginFormModal />}
 							/>
 
 							<OpenModalButton
 								buttonText="Sign Up"
-
 								onItemClick={closeMenu}
 								modalComponent={<SignupFormModal />}
 							/>
@@ -91,7 +86,6 @@ function Navigation({ isLoaded }) {
 				}
 				<div className='logo-container'>
 					<NavLink to='/'>
-
 						<img className='logo' src='/images/logo.png'></img>
 					</NavLink>
 

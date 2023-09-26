@@ -11,7 +11,6 @@ export default function SongPlayer({ songId}){
     // Song slice of state that plays the passed in song
     const currentSong = useSelector(state => state.songs.singleSong);
 
-
     let title = currentSong.title
     if(!title){
         title='No Song Selected'
@@ -30,14 +29,10 @@ export default function SongPlayer({ songId}){
             <AudioPlayer
             style={{borderRadius:"1rem",background:"#373434",marginTop:"1rem"}}
             autoPlay={false}
-
             src={`${currentSong.song_file}`}
-
-            // src={`/testSongs/${test}.mp3`}
             onPlay={e=>console.log("onPlay")}
             showSkipControls={true}
             showJumpControls={false}
-
             preload='none'
             timeFormat='auto'
             header={`Now Playing: ${title}`}
