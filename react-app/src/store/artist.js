@@ -57,12 +57,9 @@ const deleteArtist = (data) => {
 // thunks
 export const getAllArtistsThunk = () => async (dispatch) => {
     const res = await fetch('/api/artists/')
-
     const data = await res.json()
     if (data && !data.errors) dispatch(getAllArtists(data))
-
     return data
-
 }
 export const checkArtistThunk = () => async (dispatch)=>{
     const res = await fetch('/api/artists/check-artist')
@@ -72,7 +69,6 @@ export const checkArtistThunk = () => async (dispatch)=>{
 }
 export const getOneArtistThunk = (artistId) => async (dispatch) => {
     const res = await fetch(`/api/artists/${artistId}`)
-
     const data = await res.json()
     if (data && !data.errors) dispatch(getOneArtist(data))
     return data
@@ -85,13 +81,12 @@ export const createArtistThunk = (artist) => async (dispatch) => {
     formData.append("name", artist.name);
     formData.append("bio", artist.bio);
     formData.append("profile_picture", artist.profile_picture);
-    formData.append("user_id",artist.user_id)
+    formData.append("user_id", artist.user_id)
     const res = await fetch(`/api/artists/create`, {
         method: 'POST',
         body: formData
     })
     console.log("RESPONSE",res)
-
     const data = await res.json()
     console.log("DATA",data)
     if (data && !data.errors) dispatch(createArtist(data))
@@ -100,9 +95,7 @@ export const createArtistThunk = (artist) => async (dispatch) => {
 }
 // Not Done yet
 export const updateArtistThunk = (artist,artistId) => async (dispatch) => {
-
     const formData = new FormData();
-
     formData.append("name", artist.name);
     formData.append("bio", artist.bio);
 

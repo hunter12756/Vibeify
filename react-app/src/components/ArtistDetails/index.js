@@ -62,7 +62,6 @@ export default function ArtistDetails() {
                         ''
                     }
                     <h1 className='artist-name'>{artist.name}</h1>
-
                     <div className='artist-details-container'>
                         <div className='cover-img-container'>
                             <img src={`${artist.profile_picture}`}></img>

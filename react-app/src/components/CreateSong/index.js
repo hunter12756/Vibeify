@@ -31,7 +31,7 @@ export default function CreateSong({ song, formType }) {
         if (coverImg === null) {
             errors.cover_img = 'Please select an image to upload.'
         }
-        if(songFile ===null) {
+        if(songFile === null) {
             errors.song_file='Please select a file to upload'
         }
 

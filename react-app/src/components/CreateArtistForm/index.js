@@ -50,14 +50,13 @@ export default function CreateArtist({ artist, formType,onArtistUpdated}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const newArtist = {
             name,
             bio,
             profile_picture,
             user_id: user.id
         }
-
+        
         if (formType === 'Update Artist') {
             await dispatch(artistsActions.updateArtistThunk(newArtist, artist.id))
                 .then(() => {
