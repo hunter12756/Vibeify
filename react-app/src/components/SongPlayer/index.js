@@ -24,7 +24,7 @@ export default function SongPlayer({ songId}){
     },[dispatch])
     return(
         <>
-        <footer>
+        <div className='song-container-player'>
             {currentSong &&
             <AudioPlayer
             style={{borderRadius:"1rem",background:"#373434",marginTop:"1rem"}}
@@ -38,7 +38,7 @@ export default function SongPlayer({ songId}){
             header={`Now Playing: ${title}`}
             />
             }
-        </footer>
+        </div>
         </>
     )
 }

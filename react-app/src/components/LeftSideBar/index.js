@@ -19,12 +19,12 @@ export default function LeftBar({ isLoaded }) {
                                  Home
                             </div>
                         </NavLink>
-                        {/* <NavLink exact to='/search'>
+                        <NavLink exact to='/search'>
                             <div>
                                 <img id='icon-img' src='/images/searchicon.png'></img>
                                  Search
                             </div>
-                        </NavLink> */}
+                        </NavLink>
                     </div>
                 </div>
             }

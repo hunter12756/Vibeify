@@ -9,6 +9,7 @@ import SongDetails from "./components/SongDetail";
 import ArtistDetails from "./components/ArtistDetails";
 import SongPlayer from "./components/SongPlayer";
 import AboutLinks from "./components/AboutLinks";
+import Search from './components/SearchPage'
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,10 +29,14 @@ function App() {
           </Route>
           <Route exact path='/songs/:songId'>
             <SongDetails/>
+            <SongPlayer/>
           </Route>
           <Route exact path='/artists/:artistId'>
             <ArtistDetails/>
             <SongPlayer/>
+          </Route>
+          <Route exact path='/search'>
+            <Search/>
           </Route>
 
         </Switch>

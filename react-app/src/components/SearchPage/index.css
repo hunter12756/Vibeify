@@ -1,0 +1,53 @@
+#filterSong{
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+#indivdualSong{
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin:20px;
+    max-width: 180px;
+}
+
+
+
+/* SEARCH BAR */
+
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:50px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    padding: 8px;
+    border: 2px solid #8a6be8; /* Purple color */
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 16px;
+    color: #fff; /* White color */
+    background-color: #8a6be8; /* Purple color */
+  }
+  .search-input::placeholder {
+    color: #fff; /* White color for the placeholder text */
+  }
+  .search-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff; /* White color */
+    background-color: #8a6be8; /* Purple color */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .search-button:hover {
+    background-color: #6b45de; /* Darker shade of purple on hover */
+  }
