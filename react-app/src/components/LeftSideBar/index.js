@@ -34,8 +34,8 @@ export default function LeftBar({ isLoaded }) {
                     {!playlists ?
                         <div className='new-playlist-container'>
                             <div className='playlist'>
-                                <h4>Create your first playlist</h4>
-                                <p>It's easy, we'll help you</p>
+                                {/* <h4>Create your first playlist</h4>
+                                <p>It's easy, we'll help you</p> */}
                                 {/* <button
                                 id='create-playlist-btn'
                                 // onClick={history.push('/playlist/create')}>
