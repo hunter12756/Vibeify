@@ -37,6 +37,7 @@ function App() {
           </Route>
           <Route exact path='/search'>
             <Search/>
+            <SongPlayer/>
           </Route>
 
         </Switch>
